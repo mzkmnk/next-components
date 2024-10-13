@@ -1,10 +1,10 @@
 "use client"
 
-import Image from "next/image";
 import IconView, { TIconName } from "../icon-view/icon-view";
 import SidebarItem from "./sidebar-item";
 import React, { useState } from "react";
 import { TChipStyle } from "../chip/chip";
+import SidebarProfile from "./sidebar-profile";
 
 export type TSidebarItem = {
     iconName:TIconName,
@@ -14,7 +14,13 @@ export type TSidebarItem = {
     isSelected:boolean
 }
 
-const Sidebar = ({items}:{items:Omit<TSidebarItem,'isSelected'>[]}) => {
+export type TProfile = {
+    username:string,
+    email:string,
+    imagePath:string,
+}
+
+const Sidebar = ({items,profile}:{items:Omit<TSidebarItem,'isSelected'>[],profile:TProfile}) => {
 
     const [isOpen,setIsOpen] = useState<boolean>(true);
 
@@ -67,21 +73,10 @@ const Sidebar = ({items}:{items:Omit<TSidebarItem,'isSelected'>[]}) => {
                         })}
                     </div>
                 </div>
-                <div className={`duration-100 ${isOpen ? '':'hidden'}`}>
-                    <div className="border-t-[1.5px] my-2"></div>
-                    <div className="w-full flex flex-row items-center justify-between gap-2">
-                        <div className="flex flex-row items-center gap-2 w-full">
-                            <Image className="rounded-full" src="/service-icon.png" width={35} height={35} alt="service-icon" />
-                            <div className="w-full truncate text-slate-400">
-                                <p className="text-slate-700 font-semibold">MzkMnk</p>
-                                <small>mzkmnk@example.com</small>
-                            </div>
-                        </div>
-                        <div>
-                            <IconView iconName="dotsVertical" style="p-2 hover:bg-slate-200 rounded-full cursor-pointer duration-200 text-slate-500" width={15} height={15}></IconView>
-                        </div>
-                    </div>  
-                </div>
+                {
+                    profile && 
+                    <SidebarProfile isOpen={isOpen} profile={profile}></SidebarProfile>
+                }
             </div>
             <div className="flex items-center justify-center w-full overflow-y-auto">
                 {

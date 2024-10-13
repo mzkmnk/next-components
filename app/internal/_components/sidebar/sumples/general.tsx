@@ -5,8 +5,8 @@ const General = () => {
     console.log(array);
 
     return(
-        <div className="flex items-center h-full flex-col">
-            <h1>Hello General</h1>
+        <div className="flex items-center h-full flex-col text-slate-600">
+            <h3>Hello General</h3>
             {
                 array.map((v) => (<p key={v}>{v}</p>))
             }

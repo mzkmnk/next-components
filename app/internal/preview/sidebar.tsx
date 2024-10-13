@@ -1,6 +1,6 @@
 "use client"
 
-import Sidebar, { TSidebarItem } from "../_components/sidebar/sidebar";
+import Sidebar, { TProfile, TSidebarItem } from "../_components/sidebar/sidebar";
 import General from "../_components/sidebar/sumples/general";
 import GitHub from "../_components/sidebar/sumples/github";
 import Groups from "../_components/sidebar/sumples/groups";
@@ -125,9 +125,15 @@ const SidebarPreview = () => {
         }
     ];
 
+    const profile:TProfile = {
+        username:'MZKMNK',
+        email:'mzkmnk@example.com',
+        imagePath:'/assets/images/icon.jpg'
+    };
+
     return (
         <div className="w-4/5 h-4/5 border rounded-lg">
-            <Sidebar items={sidebarItems}></Sidebar>
+            <Sidebar items={sidebarItems} profile={profile}></Sidebar>
         </div>
     )
 };
