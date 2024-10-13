@@ -27,9 +27,9 @@ const Sidebar = ({items}:{items:Omit<TSidebarItem,'isSelected'>[]}) => {
     );
 
     return (
-        <div className="flex flex-row h-screen w-screen">
-            <div className={`py-1 px-2 h-full flex flex-col justify-between gap-8 border-slate-200 border-r-[1.25px] mx-2 duration-300 ${isOpen ? 'w-72':'w-20'}`}>
-                <div className="flex flex-col gap-4">
+        <div className="flex flex-row h-full w-full">
+            <div className={`py-1 px-2 h-full flex flex-col justify-between gap-2z border-slate-200 border-r-[1.25px] mx-2 duration-300 ${isOpen ? 'w-80':'w-20'}`}>
+                <div className="overflow-hidden flex flex-col gap-4">
                     <div className={`flex items-center ${isOpen ?'justify-between':'justify-center'}`}>
                         {isOpen && <p className="text-slate-700 text-xl">Project</p>}
                         {
@@ -49,7 +49,7 @@ const Sidebar = ({items}:{items:Omit<TSidebarItem,'isSelected'>[]}) => {
                             ></IconView>
                         }
                     </div>
-                    <div className={`flex flex-col gap-2 ${isOpen ? '':'items-center'}`}>
+                    <div className={`overflow-y-auto hidden-scrollbar flex flex-col gap-2 ${isOpen ? '':'items-center'}`}>
                         <SidebarItem iconName='search' itemLabel='Search' isOpen={isOpen}></SidebarItem>
                         {sidebarItems.map((sidebarItem,index) => {
                             return (
@@ -67,21 +67,23 @@ const Sidebar = ({items}:{items:Omit<TSidebarItem,'isSelected'>[]}) => {
                         })}
                     </div>
                 </div>
-                <div className={`duration-100 ${isOpen ? 'opacity-100':'opacity-0'}`}>
+                <div className={`duration-100 ${isOpen ? '':'hidden'}`}>
                     <div className="border-t-[1.5px] my-2"></div>
                     <div className="w-full flex flex-row items-center justify-between gap-2">
-                        <div className="flex flex-row items-center gap-2">
+                        <div className="flex flex-row items-center gap-2 w-full">
                             <Image className="rounded-full" src="/service-icon.png" width={35} height={35} alt="service-icon" />
-                            <div>
+                            <div className="w-full truncate text-slate-400">
                                 <p className="text-slate-700 font-semibold">MzkMnk</p>
-                                <small className="text-slate-400">mzkmnk@example.com</small>
+                                <small>mzkmnk@example.com</small>
                             </div>
                         </div>
-                        <IconView iconName="dotsVertical" style="p-2 hover:bg-slate-200 rounded-full cursor-pointer duration-200 text-slate-500" width={15} height={15}></IconView>
+                        <div>
+                            <IconView iconName="dotsVertical" style="p-2 hover:bg-slate-200 rounded-full cursor-pointer duration-200 text-slate-500" width={15} height={15}></IconView>
+                        </div>
                     </div>  
                 </div>
             </div>
-            <div>
+            <div className="flex items-center justify-center w-full overflow-y-auto">
                 {
                     sidebarItems.map((sidebarItem,index) => {
                         if(index === selectedSidebarItem){
