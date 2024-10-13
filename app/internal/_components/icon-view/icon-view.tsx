@@ -1,31 +1,55 @@
-import Circle from '../../../assets/icons/Circle.svg';
-import Docker from '../../../assets/icons/Docker.svg';
-import Folders from '../../../assets/icons/Folders.svg';
-import Users from '../../../assets/icons/Users.svg';
-import Webhook from '../../../assets/icons/Webhook.svg';
-import GitHubIcon from '../../../assets/icons/github-icon.svg';
-import Buildings from '../../../assets/icons/buildings.svg';
+import Circle from '@/public/assets/icons/Circle.svg';
+import Docker from '@/public/assets/icons/Docker.svg';
+import Group from '@/public/assets/icons/Group.svg';
+import Users from '@/public/assets/icons/Users.svg';
+import Webhook from '@/public/assets/icons/Webhook.svg';
+import GitHubIcon from '@/public/assets/icons/Github-icon.svg';
+import Buildings from '@/public/assets/icons/Buildings.svg';
+import DotsVertical from '@/public/assets/icons/Dots-vertical.svg';
+import LeftCollapse from '@/public/assets/icons/Left-collapse.svg';
+import RightCollapse from '@/public/assets/icons/Right-collapse.svg'
+import Search from '@/public/assets/icons/Search.svg';
+import Notification from '@/public/assets/icons/Notification.svg'
 
-export type TIconName = 'circle'|'docker'|'folders'|'users'|'webhook'|'buildings'|'githubIcon';
+export type TIconName = 'circle'|'docker'|'group'|'users'|'webhook'|'buildings'|'githubIcon'|'dotsVertical'|'leftCollapse'|'rightCollapse'|'search'|'notification';
 
-const IconView = ({iconName}:{iconName:TIconName}) => {
-    if(iconName === 'circle'){
-        return <Circle className='text-slate-400'></Circle>
-    }else if(iconName === 'docker'){
-        return <Docker className='text-slate-400'></Docker>
-    }else if(iconName === 'folders'){
-        return <Folders className='text-slate-400'></Folders>
-    }else if(iconName === 'users'){
-        return <Users className='text-slate-400'></Users>
-    }else if(iconName === 'webhook'){
-        return <Webhook className='text-slate-400'></Webhook>
-    }else if(iconName === 'githubIcon'){
-        return <GitHubIcon className='text-slate-400'></GitHubIcon>
-    }else if(iconName === 'buildings'){
-        return <Buildings className='text-slate-400'></Buildings>
-    }else{
-        return <div></div>
-    }
+const IconView = (
+    {
+        iconName,
+        width = 20,
+        height = 20,
+        strokeWidth = 2,
+        isSelected,
+        onClick = () => {},
+        style='text-slate-600'
+    }:{
+        iconName:TIconName,
+        width?:number,
+        height?:number,
+        strokeWidth?:number,
+        isSelected?:boolean,
+        onClick?: () => void,
+        style?:string
+    }) => {
+
+    return (
+        <div className={`${style} ${isSelected ? 'text-blue-600':''}`} onClick={onClick}>
+            {iconName === 'circle' ?
+                <Circle width={width} height={height} strokeWidth={strokeWidth}></Circle> : iconName === 'docker' ?
+                <Docker width={width} height={height} strokeWidth={strokeWidth}></Docker> : iconName === 'group' ?
+                <Group width={width} height={height} strokeWidth={strokeWidth}></Group> : iconName === 'users' ?
+                <Users width={width} height={height} strokeWidth={strokeWidth}></Users> : iconName === 'webhook' ?
+                <Webhook width={width} height={height} strokeWidth={strokeWidth}></Webhook> : iconName === 'githubIcon' ?
+                <GitHubIcon width={width} height={height} strokeWidth={strokeWidth}></GitHubIcon> : iconName === 'buildings' ?
+                <Buildings width={width} height={height} strokeWidth={strokeWidth}></Buildings> : iconName === 'dotsVertical' ? 
+                <DotsVertical width={width} height={height} strokeWidth={strokeWidth}></DotsVertical> : iconName === 'leftCollapse' ?
+                <LeftCollapse width={width} height={height} strokeWidth={strokeWidth}></LeftCollapse> : iconName === 'rightCollapse' ? 
+                <RightCollapse width={width} height={height} strokeWidth={strokeWidth}></RightCollapse> : iconName === 'search' ? 
+                <Search width={width} height={height} strokeWidth={strokeWidth}></Search> : iconName === 'notification' ? 
+                <Notification width={width} height={height} strokeWidth={strokeWidth}></Notification> : null
+            }
+        </div>
+    )
 };
 
 export default IconView;
