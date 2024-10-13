@@ -10,8 +10,9 @@ import LeftCollapse from '@/public/assets/icons/Left-collapse.svg';
 import RightCollapse from '@/public/assets/icons/Right-collapse.svg'
 import Search from '@/public/assets/icons/Search.svg';
 import Notification from '@/public/assets/icons/Notification.svg'
+import Sidebar from '@/public/assets/icons/Sidebar.svg';
 
-export type TIconName = 'circle'|'docker'|'group'|'users'|'webhook'|'buildings'|'githubIcon'|'dotsVertical'|'leftCollapse'|'rightCollapse'|'search'|'notification';
+export type TIconName = 'circle'|'docker'|'group'|'users'|'webhook'|'buildings'|'githubIcon'|'dotsVertical'|'leftCollapse'|'rightCollapse'|'search'|'notification'|'sidebar';
 
 const IconView = (
     {
@@ -46,7 +47,8 @@ const IconView = (
                 <LeftCollapse width={width} height={height} strokeWidth={strokeWidth}></LeftCollapse> : iconName === 'rightCollapse' ? 
                 <RightCollapse width={width} height={height} strokeWidth={strokeWidth}></RightCollapse> : iconName === 'search' ? 
                 <Search width={width} height={height} strokeWidth={strokeWidth}></Search> : iconName === 'notification' ? 
-                <Notification width={width} height={height} strokeWidth={strokeWidth}></Notification> : null
+                <Notification width={width} height={height} strokeWidth={strokeWidth}></Notification> : iconName === 'sidebar' ? 
+                <Sidebar width={width} height={height} strokeWidth={strokeWidth}></Sidebar> : null
             }
         </div>
     )

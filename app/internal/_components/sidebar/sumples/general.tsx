@@ -1,7 +1,15 @@
 const General = () => {
+
+    const array:number[] = Array(1000).fill(0).map((_v,i) => i);
+
+    console.log(array);
+
     return(
-        <div>
-            <h1>General</h1>
+        <div className="flex items-center h-full flex-col text-slate-600">
+            <h3>Hello General</h3>
+            {
+                array.map((v) => (<p key={v}>{v}</p>))
+            }
         </div>
     )
 };
