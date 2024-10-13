@@ -132,8 +132,11 @@ const SidebarPreview = () => {
     };
 
     return (
-        <div className="w-4/5 h-4/5 border rounded-lg">
-            <Sidebar items={sidebarItems} profile={profile}></Sidebar>
+        <div className="h-full w-full flex items-center flex-col justify-center gap-4">
+            <h2 className="text-slate-700 w-full text-left px-5">Sidebar Component</h2>
+            <div className="w-4/5 h-4/5 border rounded-lg">
+                <Sidebar items={sidebarItems} profile={profile}></Sidebar>
+            </div>
         </div>
     )
 };
