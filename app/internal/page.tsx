@@ -1,5 +1,3 @@
-"use client"
-
 import Sidebar, { TProfile, TSidebarItem } from "./_components/sidebar/sidebar";
 import SidebarPreview from "./preview/sidebar-preview";
 import TimelinePreview from "./preview/timeline-preview";
