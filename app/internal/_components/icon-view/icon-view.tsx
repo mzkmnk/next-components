@@ -11,7 +11,6 @@ import RightCollapse from '@/public/assets/icons/Right-collapse.svg'
 import Search from '@/public/assets/icons/Search.svg';
 import Notification from '@/public/assets/icons/Notification.svg'
 import Sidebar from '@/public/assets/icons/Sidebar.svg';
-
 export type TIconName = 'circle'|'docker'|'group'|'users'|'webhook'|'buildings'|'githubIcon'|'dotsVertical'|'leftCollapse'|'rightCollapse'|'search'|'notification'|'sidebar';
 
 const IconView = (
@@ -22,7 +21,7 @@ const IconView = (
         strokeWidth = 2,
         isSelected,
         onClick = () => {},
-        style='text-slate-600'
+        style
     }:{
         iconName:TIconName,
         width?:number,
@@ -34,14 +33,14 @@ const IconView = (
     }) => {
 
     return (
-        <div className={`${style} ${isSelected ? 'text-blue-600':''}`} onClick={onClick}>
+        <div className={`${isSelected ? 'text-blue-600':'text-slate-600'} ${style}`} onClick={onClick}>
             {iconName === 'circle' ?
                 <Circle width={width} height={height} strokeWidth={strokeWidth}></Circle> : iconName === 'docker' ?
                 <Docker width={width} height={height} strokeWidth={strokeWidth}></Docker> : iconName === 'group' ?
                 <Group width={width} height={height} strokeWidth={strokeWidth}></Group> : iconName === 'users' ?
                 <Users width={width} height={height} strokeWidth={strokeWidth}></Users> : iconName === 'webhook' ?
                 <Webhook width={width} height={height} strokeWidth={strokeWidth}></Webhook> : iconName === 'githubIcon' ?
-                <GitHubIcon width={width} height={height} strokeWidth={strokeWidth}></GitHubIcon> : iconName === 'buildings' ?
+                <GitHubIcon  width={width} height={height} strokeWidth={strokeWidth}></GitHubIcon> : iconName === 'buildings' ?
                 <Buildings width={width} height={height} strokeWidth={strokeWidth}></Buildings> : iconName === 'dotsVertical' ? 
                 <DotsVertical width={width} height={height} strokeWidth={strokeWidth}></DotsVertical> : iconName === 'leftCollapse' ?
                 <LeftCollapse width={width} height={height} strokeWidth={strokeWidth}></LeftCollapse> : iconName === 'rightCollapse' ? 
