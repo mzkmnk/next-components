@@ -16,8 +16,6 @@ export const chipVariants = cva("flex font-semibold items-center px-3 py-2 w-32 
     },
 });
 
-console.log(chipVariants({variant:'primary'}))
-
 type TChipProps = {
     children:ReactNode,
     className?:string,
