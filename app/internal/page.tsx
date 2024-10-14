@@ -26,7 +26,7 @@ export default function Internal(){
     const profile:TProfile = {
         username:'MZKMNK',
         email:'mzkmnk@example.com',
-        imagePath:'/assets/images/service-icon.png',
+        imagePath:'/assets/images/service-circle-icon.png',
     }
 
     return (
