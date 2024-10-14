@@ -34,40 +34,38 @@ export type TIconName = 'circle'
 const IconView = (
     {
         iconName,
-        width = 20,
-        height = 20,
-        strokeWidth = 2,
         isSelected,
         onClick = () => {},
-        style
+        style,
+        ...props
     }:{
         iconName:TIconName,
+        isSelected?:boolean,
+        onClick?: () => void,
+        style?:string,
         width?:number,
         height?:number,
         strokeWidth?:number,
-        isSelected?:boolean,
-        onClick?: () => void,
-        style?:string
     }) => {
 
     return (
         <div className={`${isSelected ? 'text-blue-600':'text-slate-600'} ${style}`} onClick={onClick}>
             {iconName === 'circle' ?
-                <Circle width={width} height={height} strokeWidth={strokeWidth}></Circle> : iconName === 'docker' ?
-                <Docker width={width} height={height} strokeWidth={strokeWidth}></Docker> : iconName === 'group' ?
-                <Group width={width} height={height} strokeWidth={strokeWidth}></Group> : iconName === 'users' ?
-                <Users width={width} height={height} strokeWidth={strokeWidth}></Users> : iconName === 'webhook' ?
-                <Webhook width={width} height={height} strokeWidth={strokeWidth}></Webhook> : iconName === 'githubIcon' ?
-                <GitHubIcon  width={width} height={height} strokeWidth={strokeWidth}></GitHubIcon> : iconName === 'buildings' ?
-                <Buildings width={width} height={height} strokeWidth={strokeWidth}></Buildings> : iconName === 'dotsVertical' ? 
-                <DotsVertical width={width} height={height} strokeWidth={strokeWidth}></DotsVertical> : iconName === 'leftCollapse' ?
-                <LeftCollapse width={width} height={height} strokeWidth={strokeWidth}></LeftCollapse> : iconName === 'rightCollapse' ? 
-                <RightCollapse width={width} height={height} strokeWidth={strokeWidth}></RightCollapse> : iconName === 'search' ? 
-                <Search width={width} height={height} strokeWidth={strokeWidth}></Search> : iconName === 'notification' ? 
-                <Notification width={width} height={height} strokeWidth={strokeWidth}></Notification> : iconName === 'sidebar' ? 
-                <Sidebar width={width} height={height} strokeWidth={strokeWidth}></Sidebar> : iconName === 'timeline' ?
-                <Timeline width={width} height={height} strokeWidth={strokeWidth}></Timeline> : iconName === 'check' ? 
-                <Check width={width} height={height} strokeWidth={strokeWidth}></Check> : null
+                <Circle {...props}></Circle> : iconName === 'docker' ?
+                <Docker {...props}></Docker> : iconName === 'group' ?
+                <Group {...props}></Group> : iconName === 'users' ?
+                <Users {...props}></Users> : iconName === 'webhook' ?
+                <Webhook {...props}></Webhook> : iconName === 'githubIcon' ?
+                <GitHubIcon   {...props}></GitHubIcon> : iconName === 'buildings' ?
+                <Buildings  {...props}></Buildings> : iconName === 'dotsVertical' ? 
+                <DotsVertical  {...props}></DotsVertical> : iconName === 'leftCollapse' ?
+                <LeftCollapse  {...props}></LeftCollapse> : iconName === 'rightCollapse' ? 
+                <RightCollapse  {...props}></RightCollapse> : iconName === 'search' ? 
+                <Search  {...props}></Search> : iconName === 'notification' ? 
+                <Notification  {...props}></Notification> : iconName === 'sidebar' ? 
+                <Sidebar  {...props}></Sidebar> : iconName === 'timeline' ?
+                <Timeline  {...props}></Timeline> : iconName === 'check' ? 
+                <Check  {...props}></Check> : null
             }
         </div>
     )
