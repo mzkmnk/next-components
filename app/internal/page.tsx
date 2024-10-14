@@ -4,17 +4,15 @@ import TimelinePreview from "./preview/timeline-preview";
 
 export default function Internal(){
 
-    const sidebarItems : TSidebarItem[] = [
+    const sidebarItems : Omit<TSidebarItem,'isSelected'>[] = [
         {
             iconName:'sidebar',
             itemLabel:'Sidebar',
-            isSelected:true,
             component:SidebarPreview,
         },
         {
             iconName:'timeline',
             itemLabel:'Timeline',
-            isSelected:false,
             component:TimelinePreview
         },
     ];

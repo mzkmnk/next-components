@@ -12,6 +12,7 @@ import Search from '@/public/assets/icons/Search.svg';
 import Notification from '@/public/assets/icons/Notification.svg'
 import Sidebar from '@/public/assets/icons/Sidebar.svg';
 import Timeline from '@/public/assets/icons/Timeline.svg';
+import Check from '@/public/assets/icons/Check.svg';
 
 
 export type TIconName = 'circle'
@@ -27,7 +28,8 @@ export type TIconName = 'circle'
                         |'search'
                         |'notification'
                         |'sidebar'
-                        |'timeline';
+                        |'timeline'
+                        |'check';
 
 const IconView = (
     {
@@ -64,7 +66,8 @@ const IconView = (
                 <Search width={width} height={height} strokeWidth={strokeWidth}></Search> : iconName === 'notification' ? 
                 <Notification width={width} height={height} strokeWidth={strokeWidth}></Notification> : iconName === 'sidebar' ? 
                 <Sidebar width={width} height={height} strokeWidth={strokeWidth}></Sidebar> : iconName === 'timeline' ?
-                <Timeline width={width} height={height} strokeWidth={strokeWidth}></Timeline> : null
+                <Timeline width={width} height={height} strokeWidth={strokeWidth}></Timeline> : iconName === 'check' ? 
+                <Check width={width} height={height} strokeWidth={strokeWidth}></Check> : null
             }
         </div>
     )
