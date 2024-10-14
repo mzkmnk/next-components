@@ -1,14 +1,19 @@
 import Sidebar, { TProfile, TSidebarItem } from "./_components/sidebar/sidebar";
-import SidebarPreview from "./preview/sidebar";
+import SidebarPreview from "./preview/sidebar-preview";
+import TimelinePreview from "./preview/timeline-preview";
 
 export default function Internal(){
 
-    const sidebarItems : TSidebarItem[] = [
+    const sidebarItems : Omit<TSidebarItem,'isSelected'>[] = [
         {
             iconName:'sidebar',
             itemLabel:'Sidebar',
-            isSelected:true,
             component:SidebarPreview,
+        },
+        {
+            iconName:'timeline',
+            itemLabel:'Timeline',
+            component:TimelinePreview
         },
     ];
 
