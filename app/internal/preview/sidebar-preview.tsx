@@ -21,6 +21,7 @@ const SidebarPreview = () => {
             iconName:'githubIcon',
             itemLabel:'Github',
             isSelected:false,
+            chipShow:true,
             component:GitHub,
         },
         {
@@ -47,7 +48,6 @@ const SidebarPreview = () => {
             component:Notification,
             isSelected:false,
         },
-        //　 削除
         {
             iconName:'buildings',
             itemLabel:'General',

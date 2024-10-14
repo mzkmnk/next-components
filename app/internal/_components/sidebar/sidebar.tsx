@@ -4,13 +4,11 @@ import IconView, { TIconName } from "../icon-view/icon-view";
 import SidebarItem from "./sidebar-item";
 import React, { useState } from "react";
 import SidebarProfile from "./sidebar-profile";
-import {VariantProps} from "class-variance-authority";
-import {chipVariants} from "@/app/internal/_components/chip/chip";
 
 export type TSidebarItem = {
     iconName:TIconName,
     itemLabel:string,
-    chip?:VariantProps<typeof chipVariants>
+    chipShow?:boolean,
     component:React.ComponentType,
     isSelected:boolean
 }
@@ -69,7 +67,7 @@ const Sidebar = ({items,profile}:{items:Omit<TSidebarItem,'isSelected'>[],profil
                                     value[index].isSelected = true;
                                     return [...value];
                                 });
-                            }} iconName={sidebarItem.iconName} itemLabel={sidebarItem.itemLabel} isOpen={isOpen} isSelected={sidebarItem.isSelected}></SidebarItem>
+                            }} iconName={sidebarItem.iconName} chipShow={sidebarItem.chipShow} itemLabel={sidebarItem.itemLabel} isOpen={isOpen} isSelected={sidebarItem.isSelected}></SidebarItem>
                         )
                         })}
                     </div>
