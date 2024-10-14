@@ -2,7 +2,7 @@ import { cva,VariantProps } from 'class-variance-authority';
 import { ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-const chipVariants = cva("flex font-semibold items-center px-3 py-2 w-32 h-10 border rounded-lg",{
+export const chipVariants = cva("flex font-semibold items-center px-3 py-2 w-32 h-10 border rounded-lg",{
     variants:{
         variant:{
             primary:"text-blue-600 border-blue-200 bg-blue-100",

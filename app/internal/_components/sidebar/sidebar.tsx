@@ -3,13 +3,14 @@
 import IconView, { TIconName } from "../icon-view/icon-view";
 import SidebarItem from "./sidebar-item";
 import React, { useState } from "react";
-import { TChipStyle } from "../chip/chip";
 import SidebarProfile from "./sidebar-profile";
+import {VariantProps} from "class-variance-authority";
+import {chipVariants} from "@/app/internal/_components/chip/chip";
 
 export type TSidebarItem = {
     iconName:TIconName,
     itemLabel:string,
-    chip?:{severity:TChipStyle,chipLabel:string},
+    chip?:VariantProps<typeof chipVariants>
     component:React.ComponentType,
     isSelected:boolean
 }
@@ -46,7 +47,7 @@ const Sidebar = ({items,profile}:{items:Omit<TSidebarItem,'isSelected'>[],profil
                                 onClick={() => setIsOpen(!isOpen)}
                                 iconName="leftCollapse"
                             ></IconView>
-                            : 
+                            :
                             <IconView
                                 style="p-2 hover:bg-slate-200 rounded-full cursor-pointer duration-200"
                                 strokeWidth={1.5}
@@ -68,13 +69,13 @@ const Sidebar = ({items,profile}:{items:Omit<TSidebarItem,'isSelected'>[],profil
                                     value[index].isSelected = true;
                                     return [...value];
                                 });
-                            }} iconName={sidebarItem.iconName} itemLabel={sidebarItem.itemLabel} chip={sidebarItem.chip} isOpen={isOpen} isSelected={sidebarItem.isSelected}></SidebarItem>
+                            }} iconName={sidebarItem.iconName} itemLabel={sidebarItem.itemLabel} isOpen={isOpen} isSelected={sidebarItem.isSelected}></SidebarItem>
                         )
                         })}
                     </div>
                 </div>
                 {
-                    profile && 
+                    profile &&
                     <SidebarProfile isOpen={isOpen} profile={profile}></SidebarProfile>
                 }
             </div>

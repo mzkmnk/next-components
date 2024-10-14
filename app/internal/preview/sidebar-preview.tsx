@@ -38,7 +38,6 @@ const SidebarPreview = () => {
         {
             iconName:'webhook',
             itemLabel:'Webhook',
-            chip:{severity:'purple',chipLabel:'Beta'},
             component:Webhook,
             isSelected:false,
         },
@@ -76,7 +75,6 @@ const SidebarPreview = () => {
         {
             iconName:'webhook',
             itemLabel:'Webhook',
-            chip:{severity:'purple',chipLabel:'Beta'},
             component:Webhook,
             isSelected:false,
         },
@@ -113,7 +111,6 @@ const SidebarPreview = () => {
         {
             iconName:'webhook',
             itemLabel:'Webhook',
-            chip:{severity:'purple',chipLabel:'Beta'},
             component:Webhook,
             isSelected:false,
         },
