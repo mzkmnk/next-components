@@ -13,6 +13,7 @@ import Notification from '@/public/assets/icons/Notification.svg'
 import Sidebar from '@/public/assets/icons/Sidebar.svg';
 import Timeline from '@/public/assets/icons/Timeline.svg';
 import Check from '@/public/assets/icons/Check.svg';
+import Cpu from '@/public/assets/icons/Cpu.svg'
 
 
 export type TIconName = 'circle'
@@ -29,7 +30,8 @@ export type TIconName = 'circle'
                         |'notification'
                         |'sidebar'
                         |'timeline'
-                        |'check';
+                        |'check'
+                        |'cpu';
 
 const IconView = (
     {
@@ -65,7 +67,8 @@ const IconView = (
                 <Notification  {...props}></Notification> : iconName === 'sidebar' ? 
                 <Sidebar  {...props}></Sidebar> : iconName === 'timeline' ?
                 <Timeline  {...props}></Timeline> : iconName === 'check' ? 
-                <Check  {...props}></Check> : null
+                <Check  {...props}></Check> : iconName === 'cpu' ? 
+                <Cpu {...props}></Cpu> : null
             }
         </div>
     )

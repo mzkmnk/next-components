@@ -1,4 +1,5 @@
 import Sidebar, { TProfile, TSidebarItem } from "./_components/sidebar/sidebar";
+import ChipPreview from "./preview/chip-preview";
 import SidebarPreview from "./preview/sidebar-preview";
 import TimelinePreview from "./preview/timeline-preview";
 
@@ -15,6 +16,11 @@ export default function Internal(){
             itemLabel:'Timeline',
             component:TimelinePreview
         },
+        {
+            iconName:'cpu',
+            itemLabel:'Chip',
+            component:ChipPreview,
+        }
     ];
 
     const profile:TProfile = {
