@@ -21,6 +21,7 @@ const SidebarPreview = () => {
             iconName:'githubIcon',
             itemLabel:'Github',
             isSelected:false,
+            chipShow:true,
             component:GitHub,
         },
         {
@@ -38,45 +39,6 @@ const SidebarPreview = () => {
         {
             iconName:'webhook',
             itemLabel:'Webhook',
-            chip:{severity:'purple',chipLabel:'Beta'},
-            component:Webhook,
-            isSelected:false,
-        },
-        {
-            iconName:'notification',
-            itemLabel:'Notification',
-            component:Notification,
-            isSelected:false,
-        },
-        //　 削除
-        {
-            iconName:'buildings',
-            itemLabel:'General',
-            isSelected:true,
-            component:General,
-        },
-        {
-            iconName:'githubIcon',
-            itemLabel:'Github',
-            isSelected:false,
-            component:GitHub,
-        },
-        {
-            iconName:'group',
-            itemLabel:'Groups',
-            isSelected:false,
-            component:Groups,
-        },
-        {
-            iconName:'users',
-            itemLabel:'Users',
-            isSelected:false,
-            component:Users,
-        },
-        {
-            iconName:'webhook',
-            itemLabel:'Webhook',
-            chip:{severity:'purple',chipLabel:'Beta'},
             component:Webhook,
             isSelected:false,
         },
@@ -113,7 +75,42 @@ const SidebarPreview = () => {
         {
             iconName:'webhook',
             itemLabel:'Webhook',
-            chip:{severity:'purple',chipLabel:'Beta'},
+            component:Webhook,
+            isSelected:false,
+        },
+        {
+            iconName:'notification',
+            itemLabel:'Notification',
+            component:Notification,
+            isSelected:false,
+        },
+        {
+            iconName:'buildings',
+            itemLabel:'General',
+            isSelected:true,
+            component:General,
+        },
+        {
+            iconName:'githubIcon',
+            itemLabel:'Github',
+            isSelected:false,
+            component:GitHub,
+        },
+        {
+            iconName:'group',
+            itemLabel:'Groups',
+            isSelected:false,
+            component:Groups,
+        },
+        {
+            iconName:'users',
+            itemLabel:'Users',
+            isSelected:false,
+            component:Users,
+        },
+        {
+            iconName:'webhook',
+            itemLabel:'Webhook',
             component:Webhook,
             isSelected:false,
         },
