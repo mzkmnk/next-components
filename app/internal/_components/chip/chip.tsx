@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
 import { cva,VariantProps } from 'class-variance-authority';
+import { ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 const chipVariants = cva("px-3 py-2 border rounded-lg",{
@@ -16,6 +16,8 @@ const chipVariants = cva("px-3 py-2 border rounded-lg",{
     },
 });
 
+console.log(chipVariants({variant:'primary'}))
+
 type TChipProps = {
     children:ReactNode,
     className?:string,
@@ -24,11 +26,8 @@ type TChipProps = {
 const Chip = ({children,className,variant}:TChipProps & VariantProps<typeof chipVariants>) => {
 
     return(
-        <div className={twMerge(chipVariants({variant,className}))}>
-            <p className={`font-semibold`}>
-                {children}
-                Preview
-            </p>
+        <div className={chipVariants({variant})}>
+            {children}
         </div>
     )
 };
