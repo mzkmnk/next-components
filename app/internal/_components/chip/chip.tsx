@@ -1,6 +1,6 @@
 import { cva,VariantProps } from 'class-variance-authority';
 import { ReactNode } from 'react';
-import { twMerge } from 'tailwind-merge';
+import { cn } from '@/app/lib/utils';
 
 export const chipVariants = cva("flex font-semibold items-center px-3 py-2 w-32 h-10 border rounded-lg",{
     variants:{
@@ -22,9 +22,8 @@ type TChipProps = {
 }
 
 const Chip = ({children,className,variant}:TChipProps & VariantProps<typeof chipVariants>) => {
-
     return(
-        <div className={twMerge(chipVariants({variant,className}))}>
+        <div className={cn(chipVariants({variant,className}))}>
             <p className="flex items-center justify-center w-full">
                 {children}
             </p>
