@@ -2,12 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-    .hidden-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-    .hidden-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
+@layer base{
+  html{
+    font-size: 14px;
   }
+}
+
+@layer utilities {
+  .hidden-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hidden-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
