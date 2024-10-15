@@ -1,3 +1,5 @@
+"use client"
+
 import Circle from '@/public/assets/icons/Circle.svg';
 import Docker from '@/public/assets/icons/Docker.svg';
 import Group from '@/public/assets/icons/Group.svg';
