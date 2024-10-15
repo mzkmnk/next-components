@@ -2,15 +2,22 @@
 
 // https://dribbble.com/shots/24348644-Side-Navigation-Animation
 
-import { ReactNode } from "react";
-import IconView from "../icon-view/icon-view";
+import { ReactNode, useState } from "react";
+import IconView, { TIconName } from "../icon-view/icon-view";
 import CompositionSidearItem from "./CompositionSidebarItem";
 
 export type TCompositionSidebar = {
-    children? : ReactNode
+    children? : ReactNode,
+    sidebarItems?:{
+        label:string;
+        iconName:TIconName
+    }[]
 }
 
-const CompositionSidebar = ({children}:TCompositionSidebar) => {
+const CompositionSidebar = ({children,sidebarItems}:TCompositionSidebar) => {
+
+    const [selectedSidebarIndex,setSelectedSidebarIndex] = useState<number>(0);
+
     return (
         <div className="w-full h-full flex flex-row">
             {/* sidebar */}
@@ -21,15 +28,16 @@ const CompositionSidebar = ({children}:TCompositionSidebar) => {
                         <IconView iconName="search" style="text-slate-400" strokeWidth={1.25}></IconView>
                         <p className="text-slate-400 font-light">Mock Search</p>
                     </div>
-                    <CompositionSidearItem itemName="github" isSelected={true}>
-                        <IconView iconName="githubIcon" style="text-slate-400" strokeWidth={1.25}></IconView>
-                    </CompositionSidearItem>
-                    <CompositionSidearItem itemName="Youtube" isSelected={false}>
-                        <IconView iconName="sidebar" style="text-slate-400" strokeWidth={1.25}></IconView>
-                    </CompositionSidearItem>
-                    <CompositionSidearItem itemName="Instagram" isSelected={false}>
-                        <IconView iconName="sidebar" style="text-slate-400" strokeWidth={1.25}></IconView>
-                    </CompositionSidearItem>
+                    {
+                        sidebarItems?.map((sidebarItem,index) => {
+                            const isSelected = index === selectedSidebarIndex;
+                            return (
+                                <CompositionSidearItem key={index} itemName={sidebarItem.label} isSelected={isSelected} onClick={() => setSelectedSidebarIndex(index)}>
+                                    <IconView iconName={sidebarItem.iconName} style={`${ isSelected ? 'text-cyan-400':'text-slate-400'}`} strokeWidth={isSelected ? 1.5:1.25}></IconView>
+                                </CompositionSidearItem>
+                            )
+                        })
+                    }
                 </div>
             </div>
             {/* children */}
