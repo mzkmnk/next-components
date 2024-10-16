@@ -1,34 +1,23 @@
-import CompositionSidebar from "../_components/composition-sidebar/CompositionSidebar";
-import { TIconName } from "../_components/icon-view/icon-view";
+// csr
+
+"use client"
+
+import ContainerSidebarItem from "../_components/composition-sidebar/ContainerSidebarItem";
+import { useSidebarStore } from "../_components/composition-sidebar/CompositionSidebar";
+import GitHub from "../_components/composition-sidebar/sumples/github";
 
 const Page = () => {
 
-    const sidebarItems:{
-        label:string;
-        iconName:TIconName
-    }[] = [
-        {
-            label:'github',
-            iconName:'githubIcon'
-        },
-        {
-            label:'Twitter',
-            iconName:'sidebar',
-        },
-        {
-            label:'Instagram',
-            iconName:'sidebar'
-        },
-        {
-            label:'Youtube',
-            iconName:'sidebar',
-        }
-    ];
+    const { sidebarLabel } = useSidebarStore();
 
     return (
-        <div className="w-screen h-screen">
-            <CompositionSidebar sidebarItems={sidebarItems}></CompositionSidebar>
-        </div>
+        <>
+            <ContainerSidebarItem>
+                {
+                    sidebarLabel === 'github' ? <GitHub></GitHub> : <div>{sidebarLabel}</div>
+                }
+            </ContainerSidebarItem>
+        </>
     )
 };
 

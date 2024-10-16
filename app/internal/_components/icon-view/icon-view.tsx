@@ -15,7 +15,11 @@ import Notification from '@/public/assets/icons/Notification.svg'
 import Sidebar from '@/public/assets/icons/Sidebar.svg';
 import Timeline from '@/public/assets/icons/Timeline.svg';
 import Check from '@/public/assets/icons/Check.svg';
-import Cpu from '@/public/assets/icons/Cpu.svg'
+import Cpu from '@/public/assets/icons/Cpu.svg';
+import Twitter from '@/public/assets/icons/Twitter.svg';
+import Meta from '@/public/assets/icons/Meta.svg';
+import Youtube from '@/public/assets/icons/Youtube.svg';
+import Logout from '@/public/assets/icons/Logout.svg';
 
 
 export type TIconName = 'circle'
@@ -33,7 +37,11 @@ export type TIconName = 'circle'
                         |'sidebar'
                         |'timeline'
                         |'check'
-                        |'cpu';
+                        |'cpu'
+                        |'meta'
+                        |'youtube'
+                        |'twitter'
+                        |'logout';
 
 const IconView = (
     {
@@ -70,7 +78,11 @@ const IconView = (
                 <Sidebar  {...props}></Sidebar> : iconName === 'timeline' ?
                 <Timeline  {...props}></Timeline> : iconName === 'check' ? 
                 <Check  {...props}></Check> : iconName === 'cpu' ? 
-                <Cpu {...props}></Cpu> : null
+                <Cpu {...props}></Cpu> : iconName === 'twitter' ? 
+                <Twitter {...props}></Twitter> : iconName === 'meta' ?
+                <Meta {...props}></Meta> : iconName === 'youtube' ?
+                <Youtube {...props}></Youtube> : iconName === 'logout' ?
+                <Logout {...props}></Logout> : null
             }
         </div>
     )
