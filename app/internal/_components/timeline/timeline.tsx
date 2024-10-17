@@ -29,7 +29,6 @@ const Timeline = () => {
                 if(steps[nowStepIndex].percentage === 100){
                     steps[nowStepIndex+1].checked = true;
                     nowStepIndex++;
-                    console.log(nowStepIndex);
                     setProgress((progress) => Math.min(Math.round(progress + 100/(steps.length-1)),100));
                     if(nowStepIndex === steps.length-1){clearInterval(interval);}
                 }
