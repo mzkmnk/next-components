@@ -4,37 +4,23 @@
 import { useState } from "react";
 import IconView, { TIconName } from "../icon-view/icon-view";
 import CompositionSidearItem from "./CompositionSidebarItem";
-import { create } from "zustand";
 
-// Zustand (別ファイルで切り出した方がいいが仕方なし...)
 
 export type TSidebarLabel = 'github'|'twitter'|'instagram'|'youtube';
 
-export type TSidebarStore = {
-    sidebarLabel:TSidebarLabel;
-    setSidebarLabel:(sidebarLabel:TSidebarLabel) => void
-}
-
-export const useSidebarStore = create<TSidebarStore>((set) => ({
-    sidebarLabel:'github',
-    setSidebarLabel:(sidebarLabel) => set(() => {
-        console.log('sidebarItem',sidebarLabel);
-        return {sidebarLabel}
-    })
-}))
+export type TSidebarHref = '/internal/compositionSidebar/github'|'/internal/compositionSidebar/twitter'|'/internal/compositionSidebar/instagram'|'/internal/compositionSidebar/youtube'
 
 // ↓本体↓
 
 export type TCompositionSidebar = {
     sidebarItems?:{
         sidebarLabel:TSidebarLabel,
-        iconName:TIconName
+        iconName:TIconName,
+        sidebarHref: TSidebarHref
     }[]
 }
 
 const CompositionSidebar = ({sidebarItems}:TCompositionSidebar) => {
-
-    const {setSidebarLabel} = useSidebarStore();
 
     const [selectedSidebarIndex,setSelectedSidebarIndex] = useState<number>(0);
 
@@ -49,10 +35,10 @@ const CompositionSidebar = ({sidebarItems}:TCompositionSidebar) => {
                     sidebarItems?.map((sidebarItem,index) => {
                         const isSelected = index === selectedSidebarIndex;
                         return (
-                            <CompositionSidearItem key={index} itemName={sidebarItem.sidebarLabel} isSelected={isSelected}
+                            <CompositionSidearItem key={index} sidebarHref={sidebarItem.sidebarHref} itemName={sidebarItem.sidebarLabel} isSelected={isSelected}
                                 onClick={() => {
                                     setSelectedSidebarIndex(index);
-                                    setSidebarLabel(sidebarItem.sidebarLabel);
+                                    // setSidebarLabel(sidebarItem.sidebarLabel);
                                 }}
                             >
                                 <IconView iconName={sidebarItem.iconName} style={`${ isSelected ? 'text-violet-600':'text-zinc-400'}`} strokeWidth={1.7}></IconView>

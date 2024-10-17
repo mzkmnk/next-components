@@ -1,29 +1,34 @@
 // ssr
 import { ReactNode } from "react";
-import CompositionSidebar, { TSidebarLabel } from "../_components/composition-sidebar/CompositionSidebar";
+import CompositionSidebar, { TSidebarHref, TSidebarLabel } from "../_components/composition-sidebar/CompositionSidebar";
 import { TIconName } from "../_components/icon-view/icon-view";
 
 const Layout = ({children}:{children:ReactNode}) => {
 
     const sidebarItems:{
         sidebarLabel:TSidebarLabel,
-        iconName:TIconName
+        iconName:TIconName,
+        sidebarHref:TSidebarHref,
     }[] = [
         {
             sidebarLabel:'github',
-            iconName:'githubIcon'
+            iconName:'githubIcon',
+            sidebarHref:'/internal/compositionSidebar/github'
         },
         {
             sidebarLabel:'twitter',
             iconName:'twitter',
+            sidebarHref:'/internal/compositionSidebar/twitter'
         },
         {
             sidebarLabel:'instagram',
-            iconName:'meta'
+            iconName:'meta',
+            sidebarHref:'/internal/compositionSidebar/instagram'
         },
         {
             sidebarLabel:'youtube',
             iconName:'youtube',
+            sidebarHref:'/internal/compositionSidebar/youtube'
         }
     ];
 
