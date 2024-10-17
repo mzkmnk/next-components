@@ -2,15 +2,19 @@
 "use client"
 
 import { useState } from "react";
-import IconView, { TIconName } from "../icon-view/icon-view";
-import SidearItem from "./SidebarItem";
+import { TIconName } from "../icon-view/icon-view";
+import Link from "next/link";
+
+import { cn } from "@/app/lib/utils";
+
+export type TSidebarItem = {
+    sidebarLabel:string,
+    iconName?:TIconName,
+    sidebarHref: string,
+};
 
 export type TSidebar = {
-    sidebarItems?:{
-        sidebarLabel:string,
-        iconName:TIconName,
-        sidebarHref: string,
-    }[]
+    sidebarItems:TSidebarItem[]
 }
 
 const Sidebar = ({sidebarItems}:TSidebar) => {
@@ -18,13 +22,23 @@ const Sidebar = ({sidebarItems}:TSidebar) => {
     const [selectedSidebarIndex,setSelectedSidebarIndex] = useState<number>(0);
 
     return (
-        <div className="p-4 w-72 h-full border-r border-slate-200">
+        <div className="p-4 w-72 h-full overflow-y-auto hidden-scrollbar">
+            <div className="flex flex-col gap-2">
+                <p className="font-semibold">Components</p>
+                {
+                    sidebarItems.map((sidebarItem,index) => {
+                        return (
+                            <Link key={index} href={sidebarItem.sidebarHref} className="indent-4" onClick={() => setSelectedSidebarIndex(index)}>
+                                <p className={cn('hover:underline hover:underline-offset-1 text-slate-500 duration-150',{
+                                    'text-slate-800 font-semibold underline underline-offset-1':selectedSidebarIndex === index
+                                })}>{sidebarItem.sidebarLabel}</p>
+                            </Link>
+                        )
+                    })
+                }
+            </div>
+            {/* 別コンポーネント
             <div className="flex flex-col gap-3">
-                <div className="gap-2 flex flex-row items-center border px-5 py-3 rounded-xl border-slate-200">
-                    <IconView iconName="search" style="text-slate-500" strokeWidth={2}></IconView>
-                    <p className="text-slate-400 font-light">Mock Search</p>
-                    {/* <input placeholder="Mock Search bar" className="border-0"></input> */}
-                </div>
                 {
                     sidebarItems?.map((sidebarItem,index) => {
                         const isSelected = index === selectedSidebarIndex;
@@ -39,7 +53,7 @@ const Sidebar = ({sidebarItems}:TSidebar) => {
                         )
                     })
                 }
-            </div>
+            </div> */}
         </div>
     )
 };

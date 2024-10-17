@@ -18,7 +18,7 @@ const SidebarItem = ({children,itemName,className,sidebarHref,isSelected,...prop
 
     return (
         <Link href={sidebarHref}>
-            <div className={twMerge(clsx('rounded-lg duration-200 font-semibold gap-3 flex flex-row items-center text-sm px-5 py-3 text-zinc-400 cursor-pointer',{
+            <div className={twMerge(clsx('rounded-lg duration-200 font-semibold gap-4 flex flex-row items-center text-sm px-5 py-3 text-zinc-400 cursor-pointer',{
                 'bg-violet-100 text-violet-700':isSelected
             }),className)} {...props}>
                 {children}
