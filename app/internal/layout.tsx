@@ -1,6 +1,6 @@
 // ssr
 import { ReactNode } from "react";
-import CompositionSidebar from "./_components/compositionSidebar/CompositionSidebar";
+import Sidebar from "./_components/Sidebar/Sidebar";
 import { TIconName } from "./_components/icon-view/icon-view";
 
 export type TSidebarHref = '/internal/github'|'/internal/twitter'|'/internal/instagram'|'/internal/youtube';
@@ -40,7 +40,7 @@ const Layout = ({children}:{children:ReactNode}) => {
     return(
         <body>
             <div className="w-screen h-screen flex flex-row">
-                <CompositionSidebar sidebarItems={sidebarItems}></CompositionSidebar>
+                <Sidebar sidebarItems={sidebarItems}></Sidebar>
                 {children}
             </div>
         </body>
