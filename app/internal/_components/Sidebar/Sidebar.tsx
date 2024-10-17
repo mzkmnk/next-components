@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import IconView, { TIconName } from "../icon-view/icon-view";
-import CompositionSidearItem from "./SidebarItem";
+import SidearItem from "./SidebarItem";
 import { TSidebarHref, TSidebarLabel } from "../../layout";
 
 // ↓本体↓
@@ -31,14 +31,14 @@ const Sidebar = ({sidebarItems}:TSidebar) => {
                     sidebarItems?.map((sidebarItem,index) => {
                         const isSelected = index === selectedSidebarIndex;
                         return (
-                            <CompositionSidearItem key={index} sidebarHref={sidebarItem.sidebarHref} itemName={sidebarItem.sidebarLabel} isSelected={isSelected}
+                            <SidearItem key={index} sidebarHref={sidebarItem.sidebarHref} itemName={sidebarItem.sidebarLabel} isSelected={isSelected}
                                 onClick={() => {
                                     setSelectedSidebarIndex(index);
                                     // setSidebarLabel(sidebarItem.sidebarLabel);
                                 }}
                             >
                                 <IconView iconName={sidebarItem.iconName} style={`${ isSelected ? 'text-violet-600':'text-zinc-400'}`} strokeWidth={1.7}></IconView>
-                            </CompositionSidearItem>
+                            </SidearItem>
                         )
                     })
                 }
