@@ -4,15 +4,12 @@
 import { useState } from "react";
 import IconView, { TIconName } from "../icon-view/icon-view";
 import SidearItem from "./SidebarItem";
-import { TSidebarHref, TSidebarLabel } from "../../layout";
-
-// ↓本体↓
 
 export type TSidebar = {
     sidebarItems?:{
-        sidebarLabel:TSidebarLabel,
+        sidebarLabel:string,
         iconName:TIconName,
-        sidebarHref: TSidebarHref
+        sidebarHref: string,
     }[]
 }
 
@@ -21,11 +18,12 @@ const Sidebar = ({sidebarItems}:TSidebar) => {
     const [selectedSidebarIndex,setSelectedSidebarIndex] = useState<number>(0);
 
     return (
-        <div className="p-3 w-80 h-full border-r border-slate-200">
+        <div className="p-4 w-72 h-full border-r border-slate-200">
             <div className="flex flex-col gap-3">
-                <div className="gap-2 flex flex-row items-center border p-2 rounded-xl border-slate-200">
-                    <IconView iconName="search" style="text-slate-400" strokeWidth={1.25}></IconView>
+                <div className="gap-2 flex flex-row items-center border px-5 py-3 rounded-xl border-slate-200">
+                    <IconView iconName="search" style="text-slate-500" strokeWidth={2}></IconView>
                     <p className="text-slate-400 font-light">Mock Search</p>
+                    {/* <input placeholder="Mock Search bar" className="border-0"></input> */}
                 </div>
                 {
                     sidebarItems?.map((sidebarItem,index) => {
@@ -34,10 +32,9 @@ const Sidebar = ({sidebarItems}:TSidebar) => {
                             <SidearItem key={index} sidebarHref={sidebarItem.sidebarHref} itemName={sidebarItem.sidebarLabel} isSelected={isSelected}
                                 onClick={() => {
                                     setSelectedSidebarIndex(index);
-                                    // setSidebarLabel(sidebarItem.sidebarLabel);
                                 }}
                             >
-                                <IconView iconName={sidebarItem.iconName} style={`${ isSelected ? 'text-violet-600':'text-zinc-400'}`} strokeWidth={1.7}></IconView>
+                                <IconView iconName={sidebarItem.iconName} style={`${ isSelected ? 'text-violet-600':'text-zinc-400'}`} strokeWidth={2}></IconView>
                             </SidearItem>
                         )
                     })

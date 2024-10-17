@@ -11,30 +11,15 @@ export type TSidebarLabel = 'github'|'twitter'|'instagram'|'youtube';
 const Layout = ({children}:{children:ReactNode}) => {
 
     const sidebarItems:{
-        sidebarLabel:TSidebarLabel,
+        sidebarLabel:string,
         iconName:TIconName,
-        sidebarHref:TSidebarHref,
+        sidebarHref:string,
     }[] = [
         {
-            sidebarLabel:'github',
-            iconName:'githubIcon',
+            sidebarLabel:'Chip',
+            iconName:'cpu',
             sidebarHref:'/internal/github'
         },
-        {
-            sidebarLabel:'twitter',
-            iconName:'twitter',
-            sidebarHref:'/internal/twitter'
-        },
-        {
-            sidebarLabel:'instagram',
-            iconName:'meta',
-            sidebarHref:'/internal/instagram'
-        },
-        {
-            sidebarLabel:'youtube',
-            iconName:'youtube',
-            sidebarHref:'/internal/youtube'
-        }
     ];
 
     return(

@@ -1,8 +1,7 @@
-const Page = () => {
+import { redirect } from "next/navigation";
 
-    return (
-        <div></div>
-    )
+const Page = () => {
+    redirect('/internal/chip')
 };
 
 export default Page;
