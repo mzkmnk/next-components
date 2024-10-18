@@ -2,14 +2,12 @@ import Chip from "../../_components/chip/chip";
 
 const Page = () => {
     return (
-        <div className="w-full h-full flex items-center justify-center">
-            <div className="rounded-xl border border-slate-400 p-3 flex flex-row items-center gap-4 min-h-80 min-w-56">
+            <div className="flex items-center justify-center gap-4 border rounded-xl min-w-[50rem] min-h-80 border-slate-400">
                 <Chip>primary</Chip>
                 <Chip variant={"warning"}>warining</Chip>
                 <Chip variant={"secondary"}>secondary</Chip>
                 <Chip variant={"danger"}>danger</Chip>
             </div>
-        </div>
     )
 }
 
