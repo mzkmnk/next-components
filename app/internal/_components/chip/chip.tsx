@@ -1,6 +1,6 @@
+import { cn } from '@/lib/utils';
 import { cva,VariantProps } from 'class-variance-authority';
 import { ReactNode } from 'react';
-import { cn } from '@/app/lib/utils';
 
 export const chipVariants = cva("flex font-semibold items-center px-3 py-2 w-32 h-10 border rounded-lg",{
     variants:{
