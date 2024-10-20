@@ -7,9 +7,7 @@ import { redirect } from "next/navigation";
 const Button = async () => {
 
     const session = await auth();
-
-    console.log(session);
-
+    
     return (
         <>
             <form
