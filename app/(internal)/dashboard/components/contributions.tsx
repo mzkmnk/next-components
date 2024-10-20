@@ -36,6 +36,8 @@ const Contributions = () => {
 
     const [contributions,setContributions] = useState<TContributions>();
 
+    const [contributionsCnt,setContributionsCnt] = useState<number>(0);
+
     const { getContributions } = useContributions();
 
     useEffect(() => {
@@ -44,6 +46,9 @@ const Contributions = () => {
             setContributions(() => {
                 const value:TContributions = {};
                 data.contributions.map((contribution) => {
+                    setContributionsCnt((cnt) => {
+                        return cnt+contribution.contributionCount
+                    });
                     value[differenceInDays(parseISO(contribution.date) ,parseISO('2024-01-01'))] = {
                         contributionCount:contribution.contributionCount,
                         date:contribution.date,
@@ -62,7 +67,7 @@ const Contributions = () => {
 
     return (
         <div className="flex flex-col w-[60rem] border rounded-xl border-slate-300 p-5">
-            <p className=" text-xl font-semibold text-slate-800">Project Contributes</p>
+            <p className=" text-xl font-semibold text-slate-800">Project Contributes<span>{contributionsCnt}</span></p>
             <div className="overflow-x-auto">
                 <table className="border-spacing-2 border-separate table-fixed w-max">
                     <thead>

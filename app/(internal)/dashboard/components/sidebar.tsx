@@ -1,5 +1,3 @@
-import { PanelLeftClose } from "lucide-react";
-
 const Sidebar = () => {
     return (
         <div className="h-full w-72 border-r">
