@@ -1,6 +1,5 @@
 import { TContributionsResponse } from "@/api/dashboard/[username]/route";
 import { format,parse } from "date-fns";
-import { useSession } from "next-auth/react";
 
 export const useContributions = () => {
     const getContributions = async (username:string) => {
