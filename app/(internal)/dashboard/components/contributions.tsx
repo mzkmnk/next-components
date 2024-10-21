@@ -6,7 +6,7 @@ import { useContributions } from "../hooks/useContributions";
 import { useEffect, useState } from "react";
 import { differenceInDays, parseISO } from "date-fns";
 
-export const heatMapCellVariants = cva('h-7 w-7 border rounded-md hover:cursor-pointer hover:border-slate-600 hover:border-[1.5px]',{
+export const heatMapCellVariants = cva('h-7 w-7 border rounded-md hover:cursor-pointer hover:border',{
     variants:{
         variant:{
             level0:'',
@@ -43,7 +43,7 @@ const Contributions = () => {
     const { getContributions } = useContributions();
 
     useEffect(() => {
-        (async() => {
+        const fetchData = async () => {
             const data = await getContributions('mzkmnk'); // todo auth()から取得
             setContributions(() => {
                 const value:TContributions = {};
@@ -58,7 +58,9 @@ const Contributions = () => {
                 })
                 return value;
             })
-        })();
+        }
+        fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
     const getVariant = (cnt:number):THeatMapCellVariant => {
@@ -73,7 +75,7 @@ const Contributions = () => {
                 <p>Project Contributes</p>
                 <p>{contributionsCnt}</p>
             </div>
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto hidden-scrollbar">
                 <table className="border-spacing-2 border-separate table-fixed w-max">
                     <thead>
                         <tr>
