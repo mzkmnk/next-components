@@ -32,7 +32,7 @@ export type THeatMapCellVariantProps = VariantProps<typeof heatMapCellVariants>;
 
 export type THeatMapCellVariant = THeatMapCellVariantProps['variant'];
 
-const Contributions = () => {
+export const ClientContributions = () => {
 
     const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
@@ -126,5 +126,3 @@ const Contributions = () => {
         </div>
     )
 };
-
-export default Contributions;
