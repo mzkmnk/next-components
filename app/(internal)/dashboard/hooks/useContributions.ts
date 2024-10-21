@@ -11,7 +11,7 @@ export type TContributions = {
 
 export const useContributions = async () => {
     const getContributions = async (username:string) => {
-        const response = await fetch(`http://localhost:3000/api/dashboard/${username}` );
+        const response = await fetch(`${process.env.API_PREFIX}/api/dashboard/${username}` );
         const data:{contributions:TContributionsResponse[]} = await response.json();
         data.contributions.map((contribution) => {
             contribution.date = format(parse(contribution.date,'yyyy-MM-dd',new Date()),"yyyy-MM-dd'T'HH:mm:ss")
@@ -24,7 +24,7 @@ export const useContributions = async () => {
 
     const contributions : TContributions = {};
 
-    const contributionsCnt:number = 0; // todo
+    let contributionsCnt:number = 0;
 
 
     data.contributions.map((contribution) => {
@@ -32,6 +32,7 @@ export const useContributions = async () => {
             contributionCount:contribution.contributionCount,
             date:contribution.date,
         };
+        contributionsCnt += contribution.contributionCount;
     })
 
     return {
