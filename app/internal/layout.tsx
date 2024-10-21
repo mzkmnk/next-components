@@ -24,7 +24,7 @@ const Layout = ({children}:{children:ReactNode}) => {
     return(
         <div className="w-screen h-screen flex flex-row ">
             <Sidebar sidebarItems={sidebarItems}></Sidebar>
-            <div className="w-full h-full">
+            <div className="h-full w-full flex items-center justify-center">
                 {children}
             </div>
         </div>
