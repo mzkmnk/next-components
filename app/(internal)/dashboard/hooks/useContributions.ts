@@ -11,7 +11,11 @@ export type TContributions = {
 
 export const useContributions = async () => {
     const getContributions = async (username:string) => {
-        const response = await fetch(`${process.env.API_PREFIX}/api/dashboard/${username}` );
+        const response = await fetch(`${process.env.API_PREFIX}/api/dashboard/${username}`,
+            {
+                method:'POST'
+            }
+        );
         const data:{contributions:TContributionsResponse[]} = await response.json();
         data.contributions.map((contribution) => {
             contribution.date = format(parse(contribution.date,'yyyy-MM-dd',new Date()),"yyyy-MM-dd'T'HH:mm:ss")

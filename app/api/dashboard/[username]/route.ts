@@ -18,7 +18,7 @@ export type TContributionsResponse = {
     contributionCount:number
 }
 
-export async function GET(_req:NextRequest,{params}:{params:{username:string}}) {
+export async function POST(_req:NextRequest,{params}:{params:{username:string}}) {
     if(params.username === undefined){
         return new NextResponse("username is required",{status:400})
     }
