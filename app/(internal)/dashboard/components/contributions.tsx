@@ -6,7 +6,7 @@ import { useContributions } from "../hooks/useContributions";
 import { useEffect, useState } from "react";
 import { differenceInDays, parseISO } from "date-fns";
 
-export const heatMapCellVariants = cva('h-7 w-7 border rounded-md',{
+export const heatMapCellVariants = cva('h-7 w-7 border rounded-md hover:cursor-pointer hover:border-slate-600 hover:border-[1.5px]',{
     variants:{
         variant:{
             level0:'',
@@ -16,7 +16,9 @@ export const heatMapCellVariants = cva('h-7 w-7 border rounded-md',{
             level4:'bg-green-500 border-green-500',
         }
     },
-    defaultVariants:{}
+    defaultVariants:{
+        variant:'level0'
+    }
 });
 
 export type TContributions = {
@@ -67,7 +69,10 @@ const Contributions = () => {
 
     return (
         <div className="flex flex-col w-[60rem] border rounded-xl border-slate-300 p-5">
-            <p className=" text-xl font-semibold text-slate-800">Project Contributes<span>{contributionsCnt}</span></p>
+            <div className="flex flex-row gap-2 items-center text-xl font-semibold text-slate-800">
+                <p>Project Contributes</p>
+                <p>{contributionsCnt}</p>
+            </div>
             <div className="overflow-x-auto">
                 <table className="border-spacing-2 border-separate table-fixed w-max">
                     <thead>
