@@ -2,9 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { cva, VariantProps } from "class-variance-authority";
-import { useContributions } from "../hooks/useContributions";
-import { useEffect, useState } from "react";
-import { differenceInDays, parseISO } from "date-fns";
+import { TContributions } from "../hooks/useContributions";
 
 export const heatMapCellVariants = cva('h-7 w-7 border rounded-md hover:cursor-pointer hover:border',{
     variants:{
@@ -21,47 +19,13 @@ export const heatMapCellVariants = cva('h-7 w-7 border rounded-md hover:cursor-p
     }
 });
 
-export type TContributions = {
-    [diff in string]:{
-        contributionCount: number;
-        date:string;
-    }
-}
-
 export type THeatMapCellVariantProps = VariantProps<typeof heatMapCellVariants>;
 
 export type THeatMapCellVariant = THeatMapCellVariantProps['variant'];
 
-export const ClientContributions = () => {
+export const ClientContributions = ({contributions,contributionsCnt}:{contributions:TContributions,contributionsCnt:number}) => {
 
     const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-
-    const [contributions,setContributions] = useState<TContributions>();
-
-    const [contributionsCnt,setContributionsCnt] = useState<number>(0);
-
-    const { getContributions } = useContributions();
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const data = await getContributions('mzkmnk'); // todo auth()から取得
-            setContributions(() => {
-                const value:TContributions = {};
-                data.contributions.map((contribution) => {
-                    setContributionsCnt((cnt) => {
-                        return cnt+contribution.contributionCount
-                    });
-                    value[differenceInDays(parseISO(contribution.date) ,parseISO('2024-01-01'))] = {
-                        contributionCount:contribution.contributionCount,
-                        date:contribution.date,
-                    };
-                })
-                return value;
-            })
-        }
-        fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[]);
 
     const getVariant = (cnt:number):THeatMapCellVariant => {
         return cnt >= 4 ? 'level4' : cnt >= 3 ? 'level3' : cnt >=2 ? "level2" : cnt >=1 ? "level1":"level0"

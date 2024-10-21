@@ -1,9 +1,17 @@
 import { TContributionsResponse } from "@/api/dashboard/[username]/route";
-import { format,parse } from "date-fns";
+import { differenceInDays, format,parse, parseISO } from "date-fns";
 
-export const useContributions = () => {
+export type TContributions = {
+    [diff in string]:{
+        contributionCount: number;
+        date:string;
+    }
+}
+
+
+export const useContributions = async () => {
     const getContributions = async (username:string) => {
-        const response = await fetch(`/api/dashboard/${username}`);
+        const response = await fetch(`http://localhost:3000/api/dashboard/${username}` );
         const data:{contributions:TContributionsResponse[]} = await response.json();
         data.contributions.map((contribution) => {
             contribution.date = format(parse(contribution.date,'yyyy-MM-dd',new Date()),"yyyy-MM-dd'T'HH:mm:ss")
@@ -12,7 +20,22 @@ export const useContributions = () => {
         return data;
     }
 
+    const data = await getContributions('mzkmnk'); // todo usernameを取得するように変更
+
+    const contributions : TContributions = {};
+
+    const contributionsCnt:number = 0; // todo
+
+
+    data.contributions.map((contribution) => {
+        contributions[differenceInDays(parseISO(contribution.date) ,parseISO('2024-01-01'))] = {
+            contributionCount:contribution.contributionCount,
+            date:contribution.date,
+        };
+    })
+
     return {
-        getContributions
+        contributions,
+        contributionsCnt
     }
 }
