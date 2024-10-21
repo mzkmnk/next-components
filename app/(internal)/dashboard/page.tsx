@@ -1,10 +1,10 @@
-import Contributions from "./components/contributions";
+import { ServerContributions } from "./components/ServerContributions";
 
 const Page = () => {
 
     return (
         <div className="w-full h-full flex items-center justify-center">
-            <Contributions></Contributions>
+            <ServerContributions></ServerContributions>
         </div>
     )
 };

@@ -18,8 +18,9 @@ export type TContributionsResponse = {
     contributionCount:number
 }
 
-export async function GET(_req:NextRequest,{params}:{params:{username:string}}) {
-    if(params.username === undefined){
+export async function POST(_req:NextRequest,{params}:{params:{username:string}}) {
+    const { username } = await params;
+    if(username === undefined){
         return new NextResponse("username is required",{status:400})
     }
 
@@ -45,7 +46,7 @@ export async function GET(_req:NextRequest,{params}:{params:{username:string}}) 
     `;
 
     const response = await octokit.graphql<TContributionsQueryResponse>(contributionsQuery,{
-        username:params.username
+        username:username,
     });
 
     const contributions:TContributionsResponse[] = response.user.contributionsCollection.contributionCalendar.weeks.flatMap(
