@@ -18,11 +18,10 @@ export type TContributionsResponse = {
     contributionCount:number
 }
 
-export async function POST(_req:NextRequest,{params}:{params:{username:string}}) {
-    const { username } = await params;
-    if(username === undefined){
-        return new NextResponse("username is required",{status:400})
-    }
+export async function POST(_req:NextRequest,context:{params:{username:string}}) {
+    // if(username === undefined){
+    //     return new NextResponse("username is required",{status:400})
+    // }
 
     const octokit = new Octokit({
         auth:process.env.GITHUB_TOKEN
@@ -46,7 +45,7 @@ export async function POST(_req:NextRequest,{params}:{params:{username:string}})
     `;
 
     const response = await octokit.graphql<TContributionsQueryResponse>(contributionsQuery,{
-        username:username,
+        username:context.params.username
     });
 
     const contributions:TContributionsResponse[] = response.user.contributionsCollection.contributionCalendar.weeks.flatMap(
