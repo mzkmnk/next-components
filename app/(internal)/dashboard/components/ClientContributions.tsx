@@ -46,7 +46,7 @@ export const ClientContributions = ({contributions,contributionsCnt}:{contributi
                             {
                                 months.map((month,index) => {
                                     return(
-                                        <td key={index} colSpan={4}>
+                                        <td key={index} colSpan={5}>
                                             <p>{month}</p>
                                         </td>
                                     );
@@ -60,13 +60,15 @@ export const ClientContributions = ({contributions,contributionsCnt}:{contributi
                                 return (
                                     <tr key={indexY} className="h-6">
                                         {
-                                            Array(51).fill(0).map((_,indexX) => {
+                                            Array(53).fill(0).map((_,indexX) => {
                                                 const idx:number = 7*indexX+indexY;
                                                 return(
                                                     <td key={indexY+indexX}>
-                                                        <div className={cn(heatMapCellVariants({
-                                                            variant:getVariant(contributions && contributions?.hasOwnProperty(idx) ? contributions[idx].contributionCount : 0)
-                                                        }))}></div>
+                                                        {
+                                                            7*indexX+indexY <= 366 && <div className={cn(heatMapCellVariants({
+                                                                variant:getVariant(contributions && contributions?.hasOwnProperty(idx) ? contributions[idx].contributionCount : 0)
+                                                            }))}></div>
+                                                        }
                                                     </td>
                                                 )
                                             })
