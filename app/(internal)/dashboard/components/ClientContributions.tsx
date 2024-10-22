@@ -3,6 +3,8 @@
 import { cn } from "@/lib/utils";
 import { cva, VariantProps } from "class-variance-authority";
 import { TContributions } from "../hooks/useContributions";
+import { useEffect, useState } from "react";
+import { format, sub } from "date-fns";
 
 export const heatMapCellVariants = cva('h-7 w-7 border rounded-md hover:cursor-pointer hover:border',{
     variants:{
@@ -27,9 +29,22 @@ export const ClientContributions = ({contributions,contributionsCnt}:{contributi
 
     const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
+    const [days,setDays] = useState<string[]>([]);// iso形式でnew Date()から1年間の日付を格納していく。
+
     const getVariant = (cnt:number):THeatMapCellVariant => {
         return cnt >= 4 ? 'level4' : cnt >= 3 ? 'level3' : cnt >=2 ? "level2" : cnt >=1 ? "level1":"level0"
     }
+
+    useEffect(() => {
+        let today:string = new Date().toISOString();
+        const lastDay:string = sub(new Date(),{years:1}).toISOString();
+        const days:string[] = [];
+        while(today !== lastDay){
+            days.unshift(today);
+            today = sub(today,{days:1}).toISOString();
+        }
+        setDays(days);
+    },[]);
 
 
 
