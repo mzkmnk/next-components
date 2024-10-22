@@ -35,15 +35,21 @@ export const ClientContributions = ({contributions,contributionsCnt}:{contributi
         return cnt >= 4 ? 'level4' : cnt >= 3 ? 'level3' : cnt >=2 ? "level2" : cnt >=1 ? "level1":"level0"
     }
 
-    useEffect(() => {
-        let today:string = new Date().toISOString();
-        const lastDay:string = sub(new Date(),{years:1}).toISOString();
+    const getOneYearDays = (today:string,lastDay:string):string[] => {
         const days:string[] = [];
         while(today !== lastDay){
             days.unshift(today);
             today = sub(today,{days:1}).toISOString();
         }
-        setDays(days);
+        console.log(days);
+        return days;
+    };
+
+    useEffect(() => {
+        let today:string = new Date().toISOString();
+        const lastDay:string = sub(new Date(),{years:1}).toISOString();
+        const days = getOneYearDays(today,lastDay);
+        setDays(days)
     },[]);
 
 
