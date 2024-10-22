@@ -11,6 +11,10 @@ export type TContributions = {
 
 export const useContributions = async () => {
     const getContributions = async (username:string) => {
+        // testで5000ms遅くする
+
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+
         const response = await fetch(`${process.env.API_PREFIX}/api/dashboard/${username}`);
         const data:{contributions:TContributionsResponse[]} = await response.json();
         data.contributions.map((contribution) => {

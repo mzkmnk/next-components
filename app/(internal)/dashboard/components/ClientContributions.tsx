@@ -34,7 +34,7 @@ export const ClientContributions = ({contributions,contributionsCnt}:{contributi
 
 
     return (
-        <div className="flex flex-col w-[60rem] border rounded-xl border-slate-300 p-5">
+        <div className="flex flex-col w-[40rem] border rounded-xl border-slate-300 p-5">
             <div className="flex flex-row gap-2 items-center text-xl font-semibold text-slate-800">
                 <p>Project Contributes</p>
                 <p>{contributionsCnt}</p>
