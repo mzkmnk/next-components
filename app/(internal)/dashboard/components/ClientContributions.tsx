@@ -55,8 +55,6 @@ export const ClientContributions = ({contributions,contributionsCnt}:{contributi
 
     const days : string[] = getOneYearDays(new Date().toISOString(),sub(new Date(),{years:1}).toISOString());
 
-    console.log(format(new Date(),'MMM'))
-
     return (
         <div className="flex flex-col w-[40rem] border rounded-xl border-slate-300 p-5">
             <div className="flex flex-row gap-2 items-center text-xl font-semibold text-slate-800">
@@ -71,7 +69,7 @@ export const ClientContributions = ({contributions,contributionsCnt}:{contributi
                                 months.map((month,index) => {
                                     return(
                                         <td key={index} colSpan={5}>
-                                            <p>{month}</p>
+                                            <p className="sticky font-semibold">{month}</p>
                                         </td>
                                     );
                                 })
