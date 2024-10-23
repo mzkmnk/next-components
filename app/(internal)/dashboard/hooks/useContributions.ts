@@ -1,5 +1,5 @@
 import { TContributionsResponse } from "@/api/dashboard/[username]/route";
-import { differenceInDays, format,parse, parseISO } from "date-fns";
+import { differenceInDays, format,parse, parseISO, sub } from "date-fns";
 
 export type TContributions = {
     [diff in string]:{
@@ -11,8 +11,8 @@ export type TContributions = {
 
 export const useContributions = async () => {
     const getContributions = async (username:string) => {
-        // testで5000ms遅くする
 
+        // testで5000ms遅くする
         // await new Promise((resolve) => setTimeout(resolve, 5000));
 
         const response = await fetch(`${process.env.API_PREFIX}/api/dashboard/${username}`);
@@ -32,7 +32,7 @@ export const useContributions = async () => {
 
 
     data.contributions.map((contribution) => {
-        contributions[differenceInDays(parseISO(contribution.date) ,parseISO('2024-01-01'))] = {
+        contributions[differenceInDays(parseISO(contribution.date) ,sub(new Date(),{years:1}))] = {
             contributionCount:contribution.contributionCount,
             date:contribution.date,
         };

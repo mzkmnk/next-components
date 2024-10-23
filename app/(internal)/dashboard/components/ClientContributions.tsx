@@ -3,8 +3,8 @@
 import { cn } from "@/lib/utils";
 import { cva, VariantProps } from "class-variance-authority";
 import { TContributions } from "../hooks/useContributions";
-import { useEffect, useState } from "react";
-import { format, sub } from "date-fns";
+import { endOfMonth, format, getDaysInMonth, sub } from "date-fns";
+import { useEffect, useRef } from "react";
 
 export const heatMapCellVariants = cva('h-7 w-7 border rounded-md hover:cursor-pointer hover:border',{
     variants:{
@@ -27,6 +27,18 @@ export type THeatMapCellVariant = THeatMapCellVariantProps['variant'];
 
 export const ClientContributions = ({contributions,contributionsCnt}:{contributions:TContributions,contributionsCnt:number}) => {
 
+    const contributionScrollRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if(contributionScrollRef.current){
+            // contributionScrollRef.current.scrollLeft = contributionScrollRef.current.scrollWidth;
+            contributionScrollRef.current.scrollTo({
+                left:contributionScrollRef.current.scrollWidth,
+                behavior:'smooth',
+            })
+        }
+    },[]);
+
     const getOneYearDays = (today:string,lastDay:string):string[] => {
         const days:string[] = [];
         while(today !== lastDay){
@@ -36,18 +48,49 @@ export const ClientContributions = ({contributions,contributionsCnt}:{contributi
         return days;
     };
 
-    const getMonthsName = ():string[] => {
-        const startDay = new Date('2024-01-01'); // todo getYear(new Date())みたいな感じに変更する
-        const endDay = new Date('2024-12-31');
-        const months:string[] = [];
-        while(startDay <= endDay){
-            months.push(format(startDay,'MMM'));
+    // todo これ制度結構悪いから頑張る。。
+    const getMonthsName = ():{month:string,colSpan:number}[] => {
+        const months:{month:string,colSpan:number}[] = [];
+        let startDay:Date = sub(new Date(),{years:1});
+        const lastDay:Date = new Date();
+        let now:number = 0;
+        while(startDay <= lastDay){
+            // 最初の場合
+            if(
+                startDay.getFullYear() === sub(new Date(),{years:1}).getFullYear() &&
+                startDay.getMonth() === sub(new Date(),{years:1}).getMonth()
+            ){
+                now += endOfMonth(startDay).getDate() - startDay.getDate() + 1
+                months.push({
+                    month:format(startDay,'MMM'),
+                    colSpan:Math.ceil(now/7),
+                });
+            }else if(
+                // 最後の場合
+                startDay.getFullYear() === new Date().getFullYear() && 
+                startDay.getMonth() === new Date().getMonth()
+            ){
+                now += new Date().getMonth();
+                months.push({
+                    month:format(startDay,'MMM'),
+                    colSpan:Math.ceil(new Date().getMonth()/7)
+                });
+            }else{
+                // それ以外
+                months.push({
+                    month:format(startDay,'MMM'),
+                    colSpan:Math.ceil((now+getDaysInMonth(startDay))/7)-Math.ceil(now/7)
+                });
+                now += getDaysInMonth(startDay)
+            };
             startDay.setMonth(startDay.getMonth()+1);
         }
+        
+        console.log(months,now);
         return months;
     }
 
-    const months = getMonthsName();
+    const months:{month:string,colSpan:number}[] = getMonthsName();
 
     const getVariant = (cnt:number):THeatMapCellVariant => {
         return cnt >= 4 ? 'level4' : cnt >= 3 ? 'level3' : cnt >=2 ? "level2" : cnt >=1 ? "level1":"level0"
@@ -56,20 +99,20 @@ export const ClientContributions = ({contributions,contributionsCnt}:{contributi
     const days : string[] = getOneYearDays(new Date().toISOString(),sub(new Date(),{years:1}).toISOString());
 
     return (
-        <div className="flex flex-col w-[40rem] border rounded-xl border-slate-300 p-5">
+        <div className="flex flex-col w-[55rem] border rounded-xl border-slate-300 p-5">
             <div className="flex flex-row gap-2 items-center text-xl font-semibold text-slate-800">
                 <p>Project Contributes</p>
                 <p>{contributionsCnt}</p>
             </div>
-            <div className="overflow-x-auto hidden-scrollbar">
+            <div className="overflow-x-auto hidden-scrollbar" ref={contributionScrollRef}>
                 <table className="border-spacing-2 border-separate table-fixed w-max">
                     <thead>
                         <tr>
                             {
                                 months.map((month,index) => {
                                     return(
-                                        <td key={index} colSpan={5}>
-                                            <p className="sticky font-semibold">{month}</p>
+                                        <td key={index} colSpan={month.colSpan}>
+                                            <p className="sticky font-semibold">{month.month}</p>
                                         </td>
                                     );
                                 })
