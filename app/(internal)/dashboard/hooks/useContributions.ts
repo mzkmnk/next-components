@@ -10,7 +10,7 @@ export type TContributions = {
 
 
 export const useContributions = async () => {
-    const getContributions = async (username:string) => {
+    const getContributions = async ({username,}:{username:string}) => {
 
         // testで5000ms遅くする
         // await new Promise((resolve) => setTimeout(resolve, 5000));
@@ -24,7 +24,7 @@ export const useContributions = async () => {
         return data;
     }
 
-    const data = await getContributions('mzkmnk'); // todo usernameを取得するように変更
+    const data = await getContributions({username:'mzkmnk',});
 
     const contributions : TContributions = {};
 

@@ -1,4 +1,5 @@
 import { Octokit } from "@octokit/core";
+import { format, sub } from "date-fns";
 import { NextRequest, NextResponse } from "next/server";
 
 export type TContributionsQueryResponse = {
@@ -27,9 +28,9 @@ export async function GET(_req:NextRequest,{params}:{params:Promise<{username:st
     })
 
     const contributionsQuery = `
-    query contributions($username:String!) {
+    query contributions($username:String!,$to:DateTime!,$from:DateTime!) {
         user(login: $username){
-            contributionsCollection(to:"2024-10-20T00:00:00",from:"2024-01-01T00:00:00"){
+            contributionsCollection(to: $to,from: $from){
                 contributionCalendar{
                     weeks{
                         contributionDays{
@@ -43,8 +44,12 @@ export async function GET(_req:NextRequest,{params}:{params:Promise<{username:st
     }
     `;
 
+    console.log(format(new Date(),'yyyy-MM-ddTHH:mm:ss'));
+
     const response = await octokit.graphql<TContributionsQueryResponse>(contributionsQuery,{
-        username,
+        username:username,
+        to:new Date(),
+        from:sub(new Date(),{years:1}),
     });
 
     const contributions:TContributionsResponse[] = response.user.contributionsCollection.contributionCalendar.weeks.flatMap(
