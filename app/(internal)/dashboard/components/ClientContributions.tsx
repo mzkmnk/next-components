@@ -5,6 +5,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import { TContributions } from "../hooks/useContributions";
 import { endOfMonth, format, getDaysInMonth, sub } from "date-fns";
 import { useEffect, useRef } from "react";
+import { getMonths, getOneYearDays } from "../utils/helper";
 
 export const heatMapCellVariants = cva('h-7 w-7 border rounded-md hover:cursor-pointer hover:border',{
     variants:{
@@ -39,58 +40,7 @@ export const ClientContributions = ({contributions,contributionsCnt}:{contributi
         }
     },[]);
 
-    const getOneYearDays = (today:string,lastDay:string):string[] => {
-        const days:string[] = [];
-        while(today !== lastDay){
-            days.unshift(today);
-            today = sub(today,{days:1}).toISOString();
-        }
-        return days;
-    };
-
-    // todo これ制度結構悪いから頑張る。。
-    const getMonthsName = ():{month:string,colSpan:number}[] => {
-        const months:{month:string,colSpan:number}[] = [];
-        let startDay:Date = sub(new Date(),{years:1});
-        const lastDay:Date = new Date();
-        let now:number = 0;
-        while(startDay <= lastDay){
-            // 最初の場合
-            if(
-                startDay.getFullYear() === sub(new Date(),{years:1}).getFullYear() &&
-                startDay.getMonth() === sub(new Date(),{years:1}).getMonth()
-            ){
-                now += endOfMonth(startDay).getDate() - startDay.getDate() + 1
-                months.push({
-                    month:format(startDay,'MMM'),
-                    colSpan:Math.ceil(now/7),
-                });
-            }else if(
-                // 最後の場合
-                startDay.getFullYear() === new Date().getFullYear() && 
-                startDay.getMonth() === new Date().getMonth()
-            ){
-                now += new Date().getMonth();
-                months.push({
-                    month:format(startDay,'MMM'),
-                    colSpan:Math.ceil(new Date().getMonth()/7)
-                });
-            }else{
-                // それ以外
-                months.push({
-                    month:format(startDay,'MMM'),
-                    colSpan:Math.ceil((now+getDaysInMonth(startDay))/7)-Math.ceil(now/7)
-                });
-                now += getDaysInMonth(startDay)
-            };
-            startDay.setMonth(startDay.getMonth()+1);
-        }
-        
-        console.log(months,now);
-        return months;
-    }
-
-    const months:{month:string,colSpan:number}[] = getMonthsName();
+    const months:{month:string,colSpan:number}[] = getMonths();
 
     const getVariant = (cnt:number):THeatMapCellVariant => {
         return cnt >= 4 ? 'level4' : cnt >= 3 ? 'level3' : cnt >=2 ? "level2" : cnt >=1 ? "level1":"level0"
