@@ -27,32 +27,35 @@ export type THeatMapCellVariant = THeatMapCellVariantProps['variant'];
 
 export const ClientContributions = ({contributions,contributionsCnt}:{contributions:TContributions,contributionsCnt:number}) => {
 
-    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-
-    const [days,setDays] = useState<string[]>([]);// iso形式でnew Date()から1年間の日付を格納していく。
-
-    const getVariant = (cnt:number):THeatMapCellVariant => {
-        return cnt >= 4 ? 'level4' : cnt >= 3 ? 'level3' : cnt >=2 ? "level2" : cnt >=1 ? "level1":"level0"
-    }
-
     const getOneYearDays = (today:string,lastDay:string):string[] => {
         const days:string[] = [];
         while(today !== lastDay){
             days.unshift(today);
             today = sub(today,{days:1}).toISOString();
         }
-        console.log(days);
         return days;
     };
 
-    useEffect(() => {
-        let today:string = new Date().toISOString();
-        const lastDay:string = sub(new Date(),{years:1}).toISOString();
-        const days = getOneYearDays(today,lastDay);
-        setDays(days)
-    },[]);
+    const getMonthsName = ():string[] => {
+        const startDay = new Date('2024-01-01'); // todo getYear(new Date())みたいな感じに変更する
+        const endDay = new Date('2024-12-31');
+        const months:string[] = [];
+        while(startDay <= endDay){
+            months.push(format(startDay,'MMM'));
+            startDay.setMonth(startDay.getMonth()+1);
+        }
+        return months;
+    }
 
+    const months = getMonthsName();
 
+    const getVariant = (cnt:number):THeatMapCellVariant => {
+        return cnt >= 4 ? 'level4' : cnt >= 3 ? 'level3' : cnt >=2 ? "level2" : cnt >=1 ? "level1":"level0"
+    }
+
+    const days : string[] = getOneYearDays(new Date().toISOString(),sub(new Date(),{years:1}).toISOString());
+
+    console.log(format(new Date(),'MMM'))
 
     return (
         <div className="flex flex-col w-[40rem] border rounded-xl border-slate-300 p-5">
@@ -81,7 +84,7 @@ export const ClientContributions = ({contributions,contributionsCnt}:{contributi
                                 return (
                                     <tr key={indexY} className="h-6">
                                         {
-                                            Array(53).fill(0).map((_,indexX) => {
+                                            Array(Math.ceil(days.length/7)).fill(0).map((_,indexX) => {
                                                 const idx:number = 7*indexX+indexY;
                                                 return(
                                                     <td key={indexY+indexX}>
