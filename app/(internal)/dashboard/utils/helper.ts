@@ -12,7 +12,7 @@ export const getOneYearDays = (today:string,lastDay:string):string[] => {
 // todo これ制度結構悪いから頑張る。。
 export const getMonths = ():{month:string,colSpan:number}[] => {
     const months:{month:string,colSpan:number}[] = [];
-    let startDay:Date = sub(new Date(),{years:1});
+    const startDay:Date = sub(new Date(),{years:1});
     const lastDay:Date = new Date();
     let now:number = 0;
     while(startDay <= lastDay){

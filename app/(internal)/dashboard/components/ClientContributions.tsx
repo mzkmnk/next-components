@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { cva, VariantProps } from "class-variance-authority";
 import { TContributions } from "../hooks/useContributions";
-import { endOfMonth, format, getDaysInMonth, sub } from "date-fns";
+import { sub } from "date-fns";
 import { useEffect, useRef } from "react";
 import { getMonths, getOneYearDays } from "../utils/helper";
 
