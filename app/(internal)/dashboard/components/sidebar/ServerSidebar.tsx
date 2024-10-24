@@ -1,10 +1,13 @@
+import { useRepos } from "../../hooks/useRepos"
 import { ClientSidebar } from "./ClientSidebar"
 
 export const ServerSidebar = async () => {
 
-    const repositories = await fetch('')
+    const { repos } = await useRepos();
 
     return (
-        <ClientSidebar></ClientSidebar>
+        <>
+            <ClientSidebar repos={repos}></ClientSidebar>
+        </>
     )
 }

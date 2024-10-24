@@ -1,7 +1,19 @@
 import { Octokit } from "@octokit/core"
+import { NextResponse } from "next/server"
+
+export type TReposResponse = {
+    totalCount:number,
+    nodes:{
+        name:string,
+        description:string|null,
+        url:string,
+        createdAt:string,
+        updatedAt:string,
+    }[]
+}[]
 
 export type TReposQueryResponse = {
-
+    user:TReposResponse
 }
 
 export const POST = async () => {
@@ -11,9 +23,7 @@ export const POST = async () => {
 
     const reposQuery = `
         query($username:String!){
-            user(login:"mzkmnk"){
-                name
-                url
+            user(login: $username){
                 repositories(last:20){
                     totalCount
                     nodes{
@@ -28,9 +38,11 @@ export const POST = async () => {
         }
     `
 
-    const queryResponse = await octokit.graphql(reposQuery,{
+    const queryResponse = await octokit.graphql<TReposQueryResponse>(reposQuery,{
         username:'mzkmnk',
     })
 
-    console.log(queryResponse);
+    return NextResponse.json<{repos:TReposResponse}>({
+        repos:queryResponse.user,
+    })
 }

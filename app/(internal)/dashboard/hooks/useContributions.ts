@@ -10,7 +10,7 @@ export type TContributions = {
 
 
 export const useContributions = async () => {
-    const getContributions = async ({username,}:{username:string}) => {
+    const getContributions = async ({username}:{username:string}) => {
 
         // testで5000ms遅くする
         // await new Promise((resolve) => setTimeout(resolve, 5000));
