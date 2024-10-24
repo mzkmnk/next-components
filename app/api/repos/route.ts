@@ -10,10 +10,12 @@ export type TReposResponse = {
         createdAt:string,
         updatedAt:string,
     }[]
-}[]
+};
 
 export type TReposQueryResponse = {
-    user:TReposResponse
+    user:{
+        repositories:TReposResponse
+    }
 }
 
 export const POST = async () => {
@@ -43,6 +45,6 @@ export const POST = async () => {
     })
 
     return NextResponse.json<{repos:TReposResponse}>({
-        repos:queryResponse.user,
+        repos:queryResponse.user.repositories,
     })
 }
