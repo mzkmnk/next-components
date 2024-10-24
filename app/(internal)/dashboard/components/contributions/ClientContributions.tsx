@@ -2,10 +2,10 @@
 
 import { cn } from "@/lib/utils";
 import { cva, VariantProps } from "class-variance-authority";
-import { TContributions } from "../hooks/useContributions";
+import { TContributions } from "../../hooks/useContributions";
 import { sub } from "date-fns";
 import { useEffect, useRef } from "react";
-import { getMonths, getOneYearDays } from "../utils/helper";
+import { getMonths, getOneYearDays } from "../../utils/helper";
 
 export const heatMapCellVariants = cva('h-7 w-7 border rounded-md hover:cursor-pointer hover:border',{
     variants:{

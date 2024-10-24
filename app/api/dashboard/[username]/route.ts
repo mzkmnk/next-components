@@ -44,8 +44,6 @@ export async function GET(_req:NextRequest,{params}:{params:Promise<{username:st
     }
     `;
 
-    console.log(format(new Date(),'yyyy-MM-ddTHH:mm:ss'));
-
     const response = await octokit.graphql<TContributionsQueryResponse>(contributionsQuery,{
         username:username,
         to:new Date(),

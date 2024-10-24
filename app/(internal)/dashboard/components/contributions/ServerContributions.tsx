@@ -1,5 +1,5 @@
 import { ClientContributions } from "./ClientContributions";
-import { useContributions } from "../hooks/useContributions";
+import { useContributions } from "../../hooks/useContributions";
 
 export const ServerContributions = async () => {
 

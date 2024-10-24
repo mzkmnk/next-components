@@ -1,5 +1,11 @@
 import { endOfMonth, format, getDaysInMonth, sub } from "date-fns";
 
+/**
+ * 1年間の日付を提供する
+ * @param today 
+ * @param lastDay 
+ * @returns 
+ */
 export const getOneYearDays = (today:string,lastDay:string):string[] => {
     const days:string[] = [];
     while(today !== lastDay){
@@ -10,6 +16,10 @@ export const getOneYearDays = (today:string,lastDay:string):string[] => {
 };
 
 // todo これ制度結構悪いから頑張る。。
+/**
+ * 月の情報とcolSpanを提供する
+ * @returns 
+ */
 export const getMonths = ():{month:string,colSpan:number}[] => {
     const months:{month:string,colSpan:number}[] = [];
     const startDay:Date = sub(new Date(),{years:1});

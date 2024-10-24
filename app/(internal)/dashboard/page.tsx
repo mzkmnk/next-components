@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { ServerContributions } from "./components/ServerContributions";
+import { ServerContributions } from "./components/contributions/ServerContributions";
 import { Skeleton } from "./components/skeleton";
 
 export const experimental_ppr = true; //PPR使用
