@@ -1,12 +1,13 @@
 import { ReactNode } from "react"
-import Sidebar from "./components/sidebar";
+import { ClientSidebar } from "./components/sidebar/ClientSidebar";
+import { ServerSidebar } from "./components/sidebar/ServerSidebar";
 
 const Layout = async ({children}:{children:ReactNode}) => {
 
 
     return (
         <div className="w-screen h-screen flex flex-row">
-            <Sidebar></Sidebar>
+            <ServerSidebar></ServerSidebar>
             <div className="flex-1">
                 {children}
             </div>
