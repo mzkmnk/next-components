@@ -15,14 +15,14 @@ export const ClientSidebar = ({repos}:{repos:TReposResponse}) => {
 
 
     return (
-        <div className="h-full w-96 border-r px-3 py-2">
+        <div className="flex flex-col gap-2 h-full w-96 border-r px-3 py-2">
             {/* contributions */}
-            <div className={cn("flex flex-col hover:bg-slate-200 rounded-lg p-2 duration-150 cursor-pointer",{
-                'bg-slate-200':clickItem === 'Contributions',
-            })}>
-                <div className="flex flex-row items-center gap-2">
-                    <GitCompare className="text-slate-500" width={16} strokeWidth={1.75} />
-                    <p className="text-slate-500 text-lg">Contributions</p>
+            <div className={cn("flex flex-col hover:bg-slate-200 rounded-lg p-2 duration-150 cursor-pointer")}>
+                <div className={cn("flex flex-row items-center gap-2",{
+                    "text-slate-900 font-semibold":clickItem === 'Contributions'
+                })}>
+                    <GitCompare width={16} strokeWidth={clickItem === 'Contributions' ? 1.9 : 1.75} />
+                    <p className="text-lg">Contributions</p>
                 </div>
             </div>
             {/* repos  */}
@@ -31,8 +31,8 @@ export const ClientSidebar = ({repos}:{repos:TReposResponse}) => {
                     <div className="flex flex-row gap-2 items-center ">
                         {
                             reposOpen ?
-                            <FolderOpen className="text-slate-500" width={16} strokeWidth={1.6} />:
-                            <FolderClosed className="text-slate-500" width={16} strokeWidth={1.6} />
+                            <FolderOpen className="text-slate-700" width={16} strokeWidth={1.6} />:
+                            <FolderClosed className="text-slate-700" width={16} strokeWidth={1.6} />
                         }
                         <p className="text-slate-500 text-lg">Repositories</p>
                     </div>

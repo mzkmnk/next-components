@@ -6,6 +6,8 @@ export const ServerContributions = async () => {
     const {contributions,contributionsCnt} = await useContributions();
 
     return (
-        <ClientContributions contributions={contributions} contributionsCnt={contributionsCnt} ></ClientContributions>
+        <>
+            <ClientContributions contributions={contributions} contributionsCnt={contributionsCnt} ></ClientContributions>
+        </>
     )
 };
