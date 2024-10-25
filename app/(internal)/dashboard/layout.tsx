@@ -1,5 +1,4 @@
 import { ReactNode } from "react"
-import { ClientSidebar } from "./components/sidebar/ClientSidebar";
 import { ServerSidebar } from "./components/sidebar/ServerSidebar";
 
 const Layout = async ({children}:{children:ReactNode}) => {
