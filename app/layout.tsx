@@ -1,11 +1,16 @@
-import type { Metadata } from "next";
+import type {Metadata} from "next";
 import "./globals.css";
 import React from "react";
+import {Noto_Sans} from 'next/font/google';
 
 export const metadata: Metadata = {
   title: "MZKMNK Component",
   description: "Component",
 };
+
+const NOTO_SANS = Noto_Sans({
+    subsets:['latin']
+})
 
 export default async function RootLayout({
   children,
@@ -14,7 +19,7 @@ export default async function RootLayout({
 }>) {
   return (
         <html lang="ja">
-        <body>
+        <body className={NOTO_SANS.className}>
           {children}
         </body>
       </html>
