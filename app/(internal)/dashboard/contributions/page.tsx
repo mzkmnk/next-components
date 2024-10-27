@@ -1,8 +1,9 @@
-import { ServerContributions } from "../components/contributions/ServerContributions";
+import {ServerContributions} from "@/(internal)/dashboard/components/contributions/ServerContributions";
+
 
 const Page = () => {
     return (
-        <div className="w-hull h-full flex items-center justify-center">
+        <div className="w-full h-full flex items-center justify-center">
             <ServerContributions></ServerContributions>
         </div>
     )

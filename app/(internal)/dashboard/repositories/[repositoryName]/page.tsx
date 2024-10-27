@@ -9,8 +9,6 @@ const Page = async ({params}:{params:Promise<{repositoryName:string}>}) => {
 
     const {brunches}:TRepositoryResponse = await response.json();
 
-    console.dir(brunches,{depth:null});
-
     return (
         <ClientRepositoryDetail  brunches={brunches}></ClientRepositoryDetail>
     )

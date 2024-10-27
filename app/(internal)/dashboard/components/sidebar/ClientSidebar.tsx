@@ -2,7 +2,7 @@
 
 import {TReposResponse} from "@/api/dashboard/repos/route"
 import {cn} from "@/lib/utils";
-import {FolderGit2, GitCompare} from "lucide-react"
+import {FolderGit2} from "lucide-react"
 import {redirect} from "next/navigation";
 import {useState} from "react"
 
@@ -16,23 +16,23 @@ export const ClientSidebar = ({repos}:{repos:TReposResponse}) => {
     return (
         <div className="flex flex-col gap-2 h-full w-96 py-2 overflow-y-auto">
             {/* contributions */}
-            <div
-                className={cn("flex flex-col p-2 cursor-pointer rounded-md duration-200 text-slate-400",{
-                    "hover:bg-slate-200 hover:font-semibold":clickItem !== 'contributions',
-                    "bg-slate-100 border-l-4 border-blue-500" : clickItem === 'contributions',
-                })}
-                onClick={() => {
-                    setClickItem(() => 'contributions')
-                    redirect('/dashboard/contributions')
-                }}
-                >
-                <div className={cn("flex flex-row items-center gap-2",{
-                    "text-blue-600 font-semibold":clickItem === 'contributions'
-                })}>
-                    <GitCompare width={16} strokeWidth={2} />
-                    <p>Contributions</p>
-                </div>
-            </div>
+            {/*<div*/}
+            {/*    className={cn("flex flex-col p-2 cursor-pointer rounded-md duration-200 text-slate-400",{*/}
+            {/*        "hover:bg-slate-200 hover:font-semibold":clickItem !== 'contributions',*/}
+            {/*        "bg-slate-100 border-l-4 border-blue-500" : clickItem === 'contributions',*/}
+            {/*    })}*/}
+            {/*    onClick={() => {*/}
+            {/*        setClickItem(() => 'contributions')*/}
+            {/*        redirect('/dashboard/contributions')*/}
+            {/*    }}*/}
+            {/*    >*/}
+            {/*    <div className={cn("flex flex-row items-center gap-2",{*/}
+            {/*        "text-blue-600 font-semibold":clickItem === 'contributions'*/}
+            {/*    })}>*/}
+            {/*        <GitCompare width={16} strokeWidth={2} />*/}
+            {/*        <p>Contributions</p>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
             {/* repos  */}
             <div className="flex flex-col gap-2">
                 <div className="flex flex-col p-2">

@@ -1,5 +1,5 @@
-import { TContributionsResponse } from "@/api/dashboard/[username]/route";
-import { differenceInDays, format,parse, parseISO, sub } from "date-fns";
+import {TContributionsResponse} from "@/api/dashboard/contributions/[username]/route";
+import {differenceInDays, format, parse, parseISO, sub} from "date-fns";
 
 export type TContributions = {
     [diff in string]:{
@@ -15,7 +15,7 @@ export const useContributions = async () => {
         // testで5000ms遅くする
         // await new Promise((resolve) => setTimeout(resolve, 5000));
 
-        const response = await fetch(`${process.env.API_PREFIX}/api/dashboard/${username}`);
+        const response = await fetch(`${process.env.API_PREFIX}/api/dashboard/contributions/${username}`);
         const data:{contributions:TContributionsResponse[]} = await response.json();
         data.contributions.map((contribution) => {
             contribution.date = format(parse(contribution.date,'yyyy-MM-dd',new Date()),"yyyy-MM-dd'T'HH:mm:ss")
