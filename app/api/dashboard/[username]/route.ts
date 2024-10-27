@@ -54,6 +54,8 @@ export async function GET(_req:NextRequest,{params}:{params:Promise<{username:st
         (week) => week.contributionDays
     );
 
+    console.dir(contributions,{depth:null});
+
     return NextResponse.json<{contributions:TContributionsResponse[]}>({
         contributions,
     })
