@@ -1,6 +1,6 @@
-import { Octokit } from "@octokit/core";
-import { format, sub } from "date-fns";
-import { NextRequest, NextResponse } from "next/server";
+import {Octokit} from "@octokit/core";
+import {sub} from "date-fns";
+import {NextRequest, NextResponse} from "next/server";
 
 export type TContributionsQueryResponse = {
     user:{

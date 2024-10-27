@@ -26,6 +26,12 @@ const nextConfig = {
   },
   images: {
     disableStaticImages: true,
+    remotePatterns: [
+      {
+        protocol:'https',
+        hostname:'avatars.githubusercontent.com'
+      }
+    ]
   },
 };
 

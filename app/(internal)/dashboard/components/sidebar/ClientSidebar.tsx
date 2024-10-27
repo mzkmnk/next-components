@@ -14,7 +14,7 @@ export const ClientSidebar = ({repos}:{repos:TReposResponse}) => {
 
 
     return (
-        <div className="flex flex-col gap-2 h-full w-96 py-2">
+        <div className="flex flex-col gap-2 h-full w-96 py-2 overflow-y-auto">
             {/* contributions */}
             <div
                 className={cn("flex flex-col p-2 cursor-pointer rounded-md duration-200 text-slate-400",{
