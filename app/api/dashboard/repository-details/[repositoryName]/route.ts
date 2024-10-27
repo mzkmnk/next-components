@@ -31,24 +31,31 @@ export type TPullRequestResponse = {
 
 export type TCommitQueryResponse = {
     repository:{
+        refs:{
+            nodes:{
+                name:string,
+                target:{
+                    history:{
+                        totalCount:number,
+                        nodes:TCommitResponse[],
+                    }
+                }
+            }[]
+        }
         pullRequests:{
             nodes:TPullRequestResponse[],
-        }|null
-        ref:{
-            target:{
-                history:{
-                    totalCount:number,
-                    nodes:TCommitResponse[],
-                }
-            }
         }|null
     }
 }
 
+export type TBrunchResponse = {
+    name:string,
+    commits:TCommitResponse[],
+}
+
 export type TRepositoryResponse = {
-    commitsTotalCount:number,
     pullRequests:TPullRequestResponse[],
-    commits:TCommitResponse[]
+    brunches:TBrunchResponse[]
 }
 
 export const GET =  async (_req:NextRequest,{params}:{params:Promise<{repositoryName:string}>}) => {
@@ -60,47 +67,50 @@ export const GET =  async (_req:NextRequest,{params}:{params:Promise<{repository
 
     const commitQuery = `
     query($repositoryName:String!){
-      repository(owner:"mzkmnk",name: $repositoryName){
-        pullRequests(first:20){
-          nodes{
-            url
-            title
-            merged
-          }
-        }
-        ref(qualifiedName:"main"){
-          target{
-            ... on Commit{
-              history{
-                  totalCount
-                  nodes{
-                    messageHeadline
+    repository(owner:"mzkmnk",name: $repositoryName){
+    refs(refPrefix:"refs/heads/",first:100){
+      nodes{
+        name
+        target{
+          ... on Commit{
+            history{
+              totalCount
+              nodes{
+                messageHeadline
+                url
+                committedDate
+                author{
+                  avatarUrl
+                  user {
                     url
-                    committedDate
-                    author{
-                      avatarUrl
-                      user {
-                        url
+                    login
+                  }
+                }
+                associatedPullRequests(first:1){
+                  nodes{
+                  ...on PullRequest{
+                      url
+                      author{
                         login
+                        avatarUrl
                       }
-                    }
-                    associatedPullRequests(first:1){
-                      nodes{
-                      \t...on PullRequest{
-                          url
-                          author{
-                            login
-                            avatarUrl
-                          }
-                          
-                        }
-                      }
+                      
                     }
                   }
+                }
               }
             }
           }
         }
+      }
+    }
+      pullRequests(first:20){
+        nodes{
+          url
+          title
+          merged
+        }
+      }
       }
     }
     `
@@ -110,9 +120,12 @@ export const GET =  async (_req:NextRequest,{params}:{params:Promise<{repository
     });
 
     return NextResponse.json<TRepositoryResponse>({
-        commitsTotalCount:response.repository.ref?.target.history.totalCount ?? 0,
         pullRequests:response.repository.pullRequests?.nodes ?? [],
-        commits: response.repository.ref?.target.history.nodes ?? [],
-        }
-    )
+        brunches: response.repository.refs.nodes.flatMap((brunches) => {
+                return {
+                    name:brunches.name,
+                    commits:brunches.target.history.nodes
+                }
+            })
+    })
 }
