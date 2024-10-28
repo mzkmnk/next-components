@@ -16,6 +16,8 @@ const Page = async ({params}:{params:Promise<{repositoryName:string}>}) => {
 
     const response = await fetch(`${protocol}://${host}/api/dashboard/repository-details/${repositoryName}`);
 
+    console.log('response',response);
+
     const {brunches}:TRepositoryResponse = await response.json();
 
     return (
