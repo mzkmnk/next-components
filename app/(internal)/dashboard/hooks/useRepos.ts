@@ -1,7 +1,15 @@
-import { TReposResponse } from "@/api/dashboard/repos/route";
+import {TReposResponse} from "@/api/dashboard/repos/route";
+import {headers} from "next/headers";
 
-export const useRepos = async ():Promise<{'repos':TReposResponse}> => {
-    const response = await fetch(`${process.env.API_PREFIX}/api/dashboard/repos`,{
+export const fetchRepos = async ():Promise<{'repos':TReposResponse}> => {
+
+    const headersData = await headers();
+    const host = headersData.get('host');
+    const protocol = headersData.get('x-forwarded-proto') ?? host?.startsWith('localhost') ? 'http' : 'https';
+
+    console.dir(headersData,{depth:null});
+
+    const response = await fetch(`${protocol}://${host}/api/dashboard/repos`,{
         method:'POST',
     });
 

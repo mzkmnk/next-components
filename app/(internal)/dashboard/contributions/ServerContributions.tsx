@@ -1,9 +1,9 @@
-import { ClientContributions } from "./ClientContributions";
-import { useContributions } from "../../hooks/useContributions";
+import {ClientContributions} from "./ClientContributions";
+import {fetchContributions} from "@/(internal)/dashboard/hooks/useContributions";
 
 export const ServerContributions = async () => {
 
-    const {contributions,contributionsCnt} = await useContributions();
+    const {contributions,contributionsCnt} = await fetchContributions();
 
     return (
         <>

@@ -1,11 +1,11 @@
 "use client"
 
-import { cn } from "@/lib/utils";
-import { cva, VariantProps } from "class-variance-authority";
-import { TContributions } from "../../hooks/useContributions";
-import { sub } from "date-fns";
-import { useEffect, useRef } from "react";
-import { getMonths, getOneYearDays } from "../../utils/helper";
+import {cn} from "@/lib/utils";
+import {cva, VariantProps} from "class-variance-authority";
+import {sub} from "date-fns";
+import {useEffect, useRef} from "react";
+import {TContributions} from "@/(internal)/dashboard/hooks/useContributions";
+import {getMonths, getOneYearDays} from "@/(internal)/dashboard/utils/helper";
 
 export const heatMapCellVariants = cva('h-7 w-7 border rounded-md hover:cursor-pointer hover:border',{
     variants:{
