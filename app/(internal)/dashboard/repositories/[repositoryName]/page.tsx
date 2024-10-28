@@ -10,6 +10,8 @@ const Page = async ({params}:{params:Promise<{repositoryName:string}>}) => {
     const host = headersData.get('host');
     const protocol = headersData.get('x-forwarded-proto') ?? host?.startsWith('localhost') ? 'http' : 'https';
 
+    console.dir(headersData,{depth:null});
+
     const response = await fetch(`${protocol}://${host}/api/dashboard/repository-details/${repositoryName}`);
 
     const {brunches}:TRepositoryResponse = await response.json();
