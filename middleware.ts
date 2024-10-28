@@ -1,10 +1,10 @@
-import { auth, auth as middleware } from '@/lib/auth';
+import {auth} from '@/lib/auth';
 
 // export { auth } from '@/lib/auth';
 
 export default auth((req) => {
-    if(req.auth && req.url.startsWith('http://localhost:3000/sign-in')){
-        return Response.redirect('http://localhost:3000/dashboard');
+    if(req.auth && req.url.startsWith(`${process.env.API_PREFIX}/sign-in`)){
+        return Response.redirect(`${process.env.API_PREFIX}/dashboard/repositories/next-components`);
     }
 })
 
