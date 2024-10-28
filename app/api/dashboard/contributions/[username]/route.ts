@@ -1,5 +1,6 @@
-import { Octokit } from "@octokit/core";
-import { NextRequest, NextResponse } from "next/server";
+import {Octokit} from "@octokit/core";
+import {sub} from "date-fns";
+import {NextRequest, NextResponse} from "next/server";
 
 export type TContributionsQueryResponse = {
     user:{
@@ -18,19 +19,18 @@ export type TContributionsResponse = {
     contributionCount:number
 }
 
-export async function GET(_req:NextRequest,{params}:{params:{username:string}}) {
-    if(params.username === undefined){
-        return new NextResponse("username is required",{status:400})
-    }
+export async function GET(_req:NextRequest,{params}:{params:Promise<{username:string}>}) {
+
+    const {username} = await params;
 
     const octokit = new Octokit({
         auth:process.env.GITHUB_TOKEN
     })
 
     const contributionsQuery = `
-    query contributions($username:String!) {
+    query contributions($username:String!,$to:DateTime!,$from:DateTime!) {
         user(login: $username){
-            contributionsCollection(to:"2024-10-20T00:00:00",from:"2024-01-01T00:00:00"){
+            contributionsCollection(to: $to,from: $from){
                 contributionCalendar{
                     weeks{
                         contributionDays{
@@ -45,7 +45,9 @@ export async function GET(_req:NextRequest,{params}:{params:{username:string}}) 
     `;
 
     const response = await octokit.graphql<TContributionsQueryResponse>(contributionsQuery,{
-        username:params.username
+        username:username,
+        to:new Date(),
+        from:sub(new Date(),{years:1}),
     });
 
     const contributions:TContributionsResponse[] = response.user.contributionsCollection.contributionCalendar.weeks.flatMap(

@@ -1,27 +1,27 @@
-import type { Metadata } from "next";
+import type {Metadata} from "next";
 import "./globals.css";
 import React from "react";
-import { NextAuthProvider } from "./nextAuthProvider";
-import { auth } from "./lib/auth";
+import {Noto_Sans} from 'next/font/google';
 
 export const metadata: Metadata = {
   title: "MZKMNK Component",
   description: "Component",
 };
 
+const NOTO_SANS = Noto_Sans({
+    subsets:['latin']
+})
+
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await auth(); // todo ssrでいいのか
   return (
-    <NextAuthProvider session={session}>
         <html lang="ja">
-        <body>
+        <body className={NOTO_SANS.className}>
           {children}
         </body>
       </html>
-    </NextAuthProvider>
   );
 }

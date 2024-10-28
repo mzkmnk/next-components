@@ -1,10 +1,11 @@
 "use client"
 
-import { cn } from "@/lib/utils";
-import { cva, VariantProps } from "class-variance-authority";
-import { useContributions } from "../hooks/useContributions";
-import { useEffect, useState } from "react";
-import { differenceInDays, parseISO } from "date-fns";
+import {cn} from "@/lib/utils";
+import {cva, VariantProps} from "class-variance-authority";
+import {sub} from "date-fns";
+import {useEffect, useRef} from "react";
+import {TContributions} from "@/(internal)/dashboard/hooks/useContributions";
+import {getMonths, getOneYearDays} from "@/(internal)/dashboard/utils/helper";
 
 export const heatMapCellVariants = cva('h-7 w-7 border rounded-md hover:cursor-pointer hover:border',{
     variants:{
@@ -21,69 +22,47 @@ export const heatMapCellVariants = cva('h-7 w-7 border rounded-md hover:cursor-p
     }
 });
 
-export type TContributions = {
-    [diff in string]:{
-        contributionCount: number;
-        date:string;
-    }
-}
-
 export type THeatMapCellVariantProps = VariantProps<typeof heatMapCellVariants>;
 
 export type THeatMapCellVariant = THeatMapCellVariantProps['variant'];
 
-const Contributions = () => {
+export const ClientContributions = ({contributions,contributionsCnt}:{contributions:TContributions,contributionsCnt:number}) => {
 
-    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-
-    const [contributions,setContributions] = useState<TContributions>();
-
-    const [contributionsCnt,setContributionsCnt] = useState<number>(0);
-
-    const { getContributions } = useContributions();
+    const contributionScrollRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const fetchData = async () => {
-            const data = await getContributions('mzkmnk'); // todo auth()から取得
-            setContributions(() => {
-                const value:TContributions = {};
-                data.contributions.map((contribution) => {
-                    setContributionsCnt((cnt) => {
-                        return cnt+contribution.contributionCount
-                    });
-                    value[differenceInDays(parseISO(contribution.date) ,parseISO('2024-01-01'))] = {
-                        contributionCount:contribution.contributionCount,
-                        date:contribution.date,
-                    };
-                })
-                return value;
+        if(contributionScrollRef.current){
+            // contributionScrollRef.current.scrollLeft = contributionScrollRef.current.scrollWidth;
+            contributionScrollRef.current.scrollTo({
+                left:contributionScrollRef.current.scrollWidth,
+                behavior:'smooth',
             })
         }
-        fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
+
+    const months:{month:string,colSpan:number}[] = getMonths();
 
     const getVariant = (cnt:number):THeatMapCellVariant => {
         return cnt >= 4 ? 'level4' : cnt >= 3 ? 'level3' : cnt >=2 ? "level2" : cnt >=1 ? "level1":"level0"
     }
 
-
+    const days : string[] = getOneYearDays(new Date().toISOString(),sub(new Date(),{years:1}).toISOString());
 
     return (
-        <div className="flex flex-col w-[60rem] border rounded-xl border-slate-300 p-5">
+        <div className="flex flex-col w-[55rem] border rounded-xl border-slate-300 p-5">
             <div className="flex flex-row gap-2 items-center text-xl font-semibold text-slate-800">
                 <p>Project Contributes</p>
                 <p>{contributionsCnt}</p>
             </div>
-            <div className="overflow-x-auto hidden-scrollbar">
+            <div className="overflow-x-auto hidden-scrollbar" ref={contributionScrollRef}>
                 <table className="border-spacing-2 border-separate table-fixed w-max">
                     <thead>
                         <tr>
                             {
                                 months.map((month,index) => {
                                     return(
-                                        <td key={index} colSpan={4}>
-                                            <p>{month}</p>
+                                        <td key={index} colSpan={month.colSpan}>
+                                            <p className="sticky font-semibold">{month.month}</p>
                                         </td>
                                     );
                                 })
@@ -96,13 +75,15 @@ const Contributions = () => {
                                 return (
                                     <tr key={indexY} className="h-6">
                                         {
-                                            Array(51).fill(0).map((_,indexX) => {
+                                            Array(Math.ceil(days.length/7)).fill(0).map((_,indexX) => {
                                                 const idx:number = 7*indexX+indexY;
                                                 return(
                                                     <td key={indexY+indexX}>
-                                                        <div className={cn(heatMapCellVariants({
-                                                            variant:getVariant(contributions && contributions?.hasOwnProperty(idx) ? contributions[idx].contributionCount : 0)
-                                                        }))}></div>
+                                                        {
+                                                            7*indexX+indexY <= 366 && <div className={cn(heatMapCellVariants({
+                                                                variant:getVariant(contributions && contributions?.hasOwnProperty(idx) ? contributions[idx].contributionCount : 0)
+                                                            }))}></div>
+                                                        }
                                                     </td>
                                                 )
                                             })
@@ -126,5 +107,3 @@ const Contributions = () => {
         </div>
     )
 };
-
-export default Contributions;
