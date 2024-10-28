@@ -1,5 +1,5 @@
-import { Octokit } from "@octokit/core"
-import { NextResponse } from "next/server"
+import {Octokit} from "@octokit/core"
+import {NextResponse} from "next/server"
 
 export type TReposResponse = {
     totalCount:number,
@@ -29,11 +29,11 @@ export const POST = async () => {
                 repositories(last:20){
                     totalCount
                     nodes{
-                    name
-                    description
-                    url
-                    createdAt
-                    updatedAt
+                        name
+                        description
+                        url
+                        createdAt
+                        updatedAt
                     }
                 }
             }
