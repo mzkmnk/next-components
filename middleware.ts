@@ -1,4 +1,4 @@
-// export { auth } from '@/lib/auth';
+export { auth as middleware } from '@/lib/auth';
 
 // export default auth((req) => {
 //     if(req.auth && req.url.startsWith(`${process.env.API_PREFIX}/sign-in`)){
