@@ -1,4 +1,4 @@
-import {ServerContributions} from "@/(internal)/dashboard/contributions/ServerContributions";
+import {ServerContributions} from "@/(internal)/dashboard/contributions/components/ServerContributions";
 
 const Page = () => {
     return (
