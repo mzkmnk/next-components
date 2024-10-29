@@ -3,15 +3,15 @@
 import {TReposResponse} from "@/api/dashboard/repos/route"
 import {cn} from "@/lib/utils";
 import {FolderGit2} from "lucide-react"
-import {redirect} from "next/navigation";
-import {useState} from "react"
+import {useParams, useRouter} from "next/navigation";
 
 export type TSidebarItem = 'Contributions'|'Repositories';
 
 export const ClientSidebar = ({repos}:{repos:TReposResponse}) => {
 
-    const [clickItem,setClickItem] = useState<string>('contributions');
+    const router = useRouter();
 
+    const { repositoryName } = useParams();
 
     return (
         <div className="flex flex-col gap-2 h-full w-96 py-2 overflow-y-auto">
@@ -33,14 +33,13 @@ export const ClientSidebar = ({repos}:{repos:TReposResponse}) => {
                                         <div
                                             className={cn("flex rounded-lg text-slate-400 font-semibold text-lg")}
                                             onClick={() => {
-                                                setClickItem(() => repo.name)
-                                                redirect(`/dashboard/repositories/${repo.name}`)
+                                                router.push(`/dashboard/repositories/${repo.name}`)
                                             }}
                                             >
                                             <p
                                                 className={cn("flex items-center px-4 py-2 rounded-lg duration-200", {
-                                                    "hover:bg-slate-200 hover:text-lg hover:text-slate-800 cursor-pointer":clickItem !== repo.name,
-                                                    "bg-slate-300 text-slate-900": clickItem === repo.name,
+                                                    "hover:bg-slate-200 hover:text-lg hover:text-slate-800 cursor-pointer":repositoryName !== repo.name,
+                                                    "bg-slate-300 text-slate-900": repositoryName === repo.name,
                                                 }
                                             )}>
                                                 {repo.name}
