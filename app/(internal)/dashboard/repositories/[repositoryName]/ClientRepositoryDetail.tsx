@@ -88,7 +88,7 @@ export const ClientRepositoryDetail = ({brunches}:{brunches:TBrunchResponse[]}) 
                         showCommits.map((commit: TCommitResponse, key: number) => {
                             return (
                                 <tr key={key} className={cn("", {
-                                    "bg-gray-100": key % 2 === 0
+                                    "bg-slate-100": key % 2 === 0
                                 })}>
                                     <td className={"px-5 py-2 duration-300"}>
                                         <Link href={commit.url}>
