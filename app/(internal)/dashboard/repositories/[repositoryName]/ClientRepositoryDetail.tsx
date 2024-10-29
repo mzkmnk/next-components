@@ -129,7 +129,7 @@ export const ClientRepositoryDetail = ({brunches}:{brunches:TBrunchResponse[]}) 
                                         </div>
                                     </td>
                                     <td className={"px-5 py-2"}>
-                                        <p>{format(commit.committedDate, 'yyyy/MM/dd hh:mm')}</p>
+                                        <p>{format(commit.committedDate, 'yyyy/MM/dd HH:mm')}</p>
                                     </td>
                                 </tr>
                             )
